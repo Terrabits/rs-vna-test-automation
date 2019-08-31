@@ -1,0 +1,77 @@
+{
+  "name": "rs-app-template",
+  "productName": "R&S App Template",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Nick Lalic",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com"
+  },
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "@primer/octicons-react": "^9.1.0",
+    "bootstrap": "^4.3.1",
+    "caniuse-lite": "^1.0.30000974",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "serve": "^11.0.2",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "start": "concurrently \"react-scripts start\" \"wait-on http://localhost:3000 && electron . --use-localhost-3000 --open-devtools\"",
+    "start-production": "concurrently \"serve -l 3000 -s build\" \"wait-on http://localhost:3000 && electron . --use-localhost-3000 --open-devtools\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dist": "react-scripts build && build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "electron": "^5.0.4",
+    "electron-builder": "^20.43.0",
+    "node-sass": "^4.12.0",
+    "wait-on": "^3.2.0"
+  },
+  "build": {
+    "appId": "com.rohde-schwarz.app-template",
+    "productName": "R&S App Template",
+    "files": [
+      "build/**/*",
+      "LICENSE.txt",
+      "main.js",
+      "!public",
+      "!src",
+      "!.*"
+    ],
+    "extraResources": [],
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "perMachine": true,
+      "menuCategory": "Rohde-Schwarz"
+    },
+    "extends": null
+  }
+}

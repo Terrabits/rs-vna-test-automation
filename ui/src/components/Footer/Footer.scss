@@ -1,0 +1,17 @@
+@import '../variables';
+@import '../../scss/bootstrap-variables';
+
+footer {
+  position: fixed;
+  top: calc(100vh - #{$footer-height});
+  left: 0;
+  width: 100%;
+  height: $footer-height;
+  z-index: 1;
+  background-color: $footer-color;
+  padding-left: 0.75*$spacer;
+  padding-right: 0.75rem;
+  button#footer-back {
+    border: 1px solid darken($footer-color, 5);
+  }
+}

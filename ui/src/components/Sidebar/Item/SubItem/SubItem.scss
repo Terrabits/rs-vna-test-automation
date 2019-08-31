@@ -1,0 +1,18 @@
+@import '../../../variables';
+@import '../../../../scss/bootstrap-variables';
+
+ul#sidebar-items ul.sidebar-subitems {
+  padding-top: 0px;
+  padding-left: 1.75*$nav-link-padding-x;
+  padding-bottom: $nav-link-padding-y;
+  margin-top: -8px;
+  list-style: none;
+  a.nav-link {
+    padding: 0;
+    font-weight: 500;
+    color: #888;
+  }
+  a.nav-link.active {
+    color: $body-color;
+  }
+}

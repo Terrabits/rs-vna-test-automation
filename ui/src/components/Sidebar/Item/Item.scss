@@ -1,0 +1,12 @@
+@import '../../variables';
+@import '../../../scss/bootstrap-variables';
+
+ul#sidebar-items li.sidebar-item {
+  a.nav-link {
+    font-weight: 500;
+    color: #888;
+  }
+  a.nav-link.active {
+    color: $body-color;
+  }
+}

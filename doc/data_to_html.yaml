@@ -1,0 +1,32 @@
+timestamp: ""
+instrument:
+  id string: ""
+  options:   ""
+limits: "passed|failed"
+channels:
+  - name:       "Ch1"
+    data:
+      ports:    4
+      contents: ""
+  # ...
+diagrams:
+  - title:
+    screenshot:
+      type:     PNG
+      contents: ""
+    limits: passed|failed
+    traces:
+      trc1:
+        data:   ""
+        limits: passed|failed
+        markers:
+          - name: mkr1
+            x:
+              value: 1
+              unit:  dB
+            y:
+              value: 1
+              unit:  Hz
+          # ...
+      # ...
+  # ...

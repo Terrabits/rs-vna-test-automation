@@ -1,0 +1,22 @@
+name: Example Cable Test
+calibration:
+  setup: setup/calibration.scpi
+  ports: [1, 2, 3, 4]
+  save_as: usba_usbc-{timestamp}
+measurements:
+  - setup: setup/measurement_step_1.scpi
+    name: Step 1
+    image: image/measurement/step_1.jpg
+    connections:
+      vna port 1: USB-A D+
+      vna port 3: USB-A D-
+      vna port 2: USB-C D+
+      vna port 4: USB-C D-
+  - setup: setup/measurement_step_2.scpi
+    name: Step 2
+    image: image/measurement/step_2.jpg
+    connections:
+      vna port 1: USB-A D+
+      vna port 3: USB-A D-
+      vna port 2: USB-C D+
+      vna port 4: USB-C D-
