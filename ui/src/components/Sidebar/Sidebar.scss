@@ -1,19 +1,17 @@
-@import '../variables';
 @import '../../scss/bootstrap-variables';
 
 nav#sidebar {
   position: fixed;
-  top: 0;
+  top: $header-height;
   bottom: 0;
   left: 0;
-  z-index: 100;
-  /* padding: 49px 0 0; /* Height of navbar */
-  height: calc(100vh - #{$footer-height});
+  z-index: 1;
+  height: calc(100vh - #{$header-height} - #{$footer-height});
   background-color: $sidebar-color;
   div.sticky {
     position: relative;
     top: 0;
-    height: calc(100vh - #{$footer-height});
+    height: calc(100vh - #{$header-height} - #{$footer-height});
     padding-top: .5rem;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */

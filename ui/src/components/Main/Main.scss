@@ -1,12 +1,12 @@
-@import '/../variables';
+@import '../../scss/bootstrap-variables';
 
 main {
+  margin-top: 0;
   padding-top: 0.5rem;
-  height: calc(100vh - #{$footer-height});
-  border-left: 1px solid rgba(0,0,0,.3);
-  border-bottom: 1px solid rgba(0,0,0,.3);
+  height: calc(100vh - #{$header-height} - #{$footer-height});
+  border: 1px solid rgba(0,0,0,0.3);
   overflow-y: auto;
   div#main {
-    min-height: calc(200vh);
+    //
   }
 }

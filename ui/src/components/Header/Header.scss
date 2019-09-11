@@ -1,0 +1,19 @@
+@import '../../scss/bootstrap-variables';
+
+// body {
+//   padding-top: 50px;
+// }
+header {
+  height: $header-height;
+}
+nav#navbar {
+  position: fixed;
+  top:  0;
+  left: 0;
+  width: 100%;
+  height: $header-height;
+  background-color: $header-color;
+  span.navbar-brand {
+    width: $logo-width;
+  }
+}

@@ -14,7 +14,7 @@ function Sidebar(props) {
   return (
     <nav id="sidebar" className="col-md-2 d-none d-md-block">
       <div className="sticky">
-        <ul id="sidebar-items" className="nav flex-column">
+        <ul id="sidebar-items" className="nav d-flex flex-column">
           {items}
         </ul>
       </div>
