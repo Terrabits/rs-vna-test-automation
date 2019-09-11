@@ -3,4 +3,16 @@
 
 body {
   margin-bottom: 0px !important;
+  min-width: $min-width;
+}
+
+code {
+  color: $rs-blue;
+}
+
+.rs-blue {
+  color: $rs-blue;
+}
+a.navbar-brand.rs-blue {
+  color: $rs-blue;
 }

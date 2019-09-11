@@ -1,1 +1,24 @@
+// General
+$min-width: 300px;
 
+// text colors
+$rs-blue:      #009bea;
+$rs-dark-blue: darken($rs-blue, 10%);
+
+// background
+$background-color: #dadada;
+
+// header
+$header-height: 50px;
+$header-color:  $background-color;
+$logo-width:    200px;
+
+// footer
+$footer-height: 45px;
+$footer-color:  $background-color;
+
+// sidebar
+$sidebar-color: $background-color;
+
+// table
+$table-max-width: 500px;
