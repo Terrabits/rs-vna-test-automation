@@ -27,11 +27,11 @@ const nextClicked = (event=null) => {
   }
   controller.next();
 };
-window.view = ReactDOM.render(<App sidebarItems={sidebarItems} onBackClicked={backClicked} onNextClicked={nextClicked}/>, document.getElementById('root'));
-
+window.view       = ReactDOM.render(<App sidebarItems={sidebarItems} onBackClicked={backClicked} onNextClicked={nextClicked}/>, document.getElementById('root'));
 window.model      = new Model();
 window.controller = controller;
 
+// model console.logs
 window.model.socket.open().then(() => {
   console.log('model is open!');
   window.model.socket.closed().then((event) => {
