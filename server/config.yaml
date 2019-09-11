@@ -16,6 +16,7 @@ plugins:
   commands.project.calibration.step:                {}
   commands.project.calibration.steps:               {}
   commands.project.measurement.perform_step:   {}
+  commands.project.measurement.save:           {}
   commands.project.measurement.start:          {}
   commands.project.measurement.step:           {}
   commands.project.measurement.step_image:     {}
