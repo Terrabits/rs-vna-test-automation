@@ -24,6 +24,11 @@ class CommandMixin(object):
                     raise self.command_error(f"'{value}' is not a valid {type}")
                 args[name] = typed_value
             else:
+                # str
+                if value.startswith('"') or value.startswith("'"):
+                    value = value[1:]
+                if value.endswith('"') or value.endswith("'"):
+                    value = value[:-1]
                 args[name] = value
         return args
 
