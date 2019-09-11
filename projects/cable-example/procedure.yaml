@@ -8,15 +8,15 @@ measurements:
     name: Step 1
     image: image/measurement/step_1.jpg
     connections:
-      vna port 1: USB-A D+
-      vna port 3: USB-A D-
-      vna port 2: USB-C D+
-      vna port 4: USB-C D-
+      1: USB-A D+
+      3: USB-A D-
+      2: USB-C D+
+      4: USB-C D-
   - setup: setup/measurement_step_2.scpi
     name: Step 2
     image: image/measurement/step_2.jpg
     connections:
-      vna port 1: USB-A D+
-      vna port 3: USB-A D-
-      vna port 2: USB-C D+
-      vna port 4: USB-C D-
+      1: USB-A D+
+      3: USB-A D-
+      2: USB-C D+
+      4: USB-C D-
