@@ -8,7 +8,7 @@ function HomePage(props) {
     project.push((
       <div key="project" className="form-group">
         <label>Project</label>
-        <input id="project" className="form-control-file" type="file" name="project-filename"/>
+        <input id="project-filename" className="form-control-file" type="file" name="project-filename"/>
       </div>
     ))
   }
@@ -23,7 +23,7 @@ function HomePage(props) {
           <form>
             <div className="form-group">
               <label>VNA IP Address</label>
-              <input id="address" className="form-control" type="text"/>
+              <input id="ip-address" className="form-control" type="text"/>
             </div>
             {project}
             <p></p>

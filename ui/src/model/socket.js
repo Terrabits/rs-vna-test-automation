@@ -1,5 +1,5 @@
 const HOSTNAME      = window.location.hostname
-const PORT          = 61537;
+const PORT          = 60439;
 function url(hostname, port) {
   return `ws://${hostname}:${port}`
 }
@@ -25,7 +25,6 @@ class Socket {
         resolve();
       };
       const onerror = (event) => {
-        console.log(`Model.open().onerror(event: ${event})`);
         reject();
       };
       this.socket.onopen  = onopen;
@@ -71,10 +70,9 @@ class Socket {
       };
     });
   }
-  query(message, typefn=undefined) {
-    const promise = this.read(typefn);
-    this.socket.send(message);
-    return promise;
+  async query(message, typefn=undefined) {
+    this.send(message);
+    return await this.read(typefn);
   }
 }
 

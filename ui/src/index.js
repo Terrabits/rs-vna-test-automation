@@ -9,11 +9,10 @@ import Controller   from './controller';
 // MVC
 window.view       = ReactDOM.render(<App/>, document.getElementById('root'));
 window.model      = new Model();
-window.controller = new Controller(window.model, window.view);
 
 // model console.logs
 window.model.socket.open().then(() => {
-  console.log('model is open!');
+  window.controller = new Controller(window.model, window.view);
   window.model.socket.closed().then((event) => {
     console.log('model closed!');
   }).catch((param) => {

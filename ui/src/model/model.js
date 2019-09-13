@@ -44,8 +44,9 @@ class Model {
 
   // calibration
   async calGroups() {
-    const response = await this.query('cal_groups?\n');
-    return response.split(',');
+    const response      = await this.socket.query('cal_groups?\n');
+    const booleanFilter = (i) => { return Boolean(i); };
+    return response.trim().split(',').filter(booleanFilter);
   }
   async calUnits() {
     return await this.socket.query('cal_units?\n', toNumber);
@@ -72,7 +73,7 @@ class Model {
   }
   async applyCalibration(calGroup=null) {
     calGroup        = calGroup || '""';
-    return await this.socket.send(`apply_calibration? ${calGroup}\n`, toBool);
+    return await this.socket.query(`apply_calibration? ${calGroup}\n`, toBool);
   }
 
   // measurement
@@ -89,7 +90,7 @@ class Model {
     }
     return await this.socket.query(`measurement_step? ${i}\n`, toJson);
   }
-  startMeasurementsFor(serialNo, calGroup=null) {
+  startMeasurementFor(serialNo, calGroup=null) {
     calGroup = calGroup || '""';
     const scpi = `start_measurements_for ${serialNo} ${calGroup}\n`;
     this.socket.send(scpi);

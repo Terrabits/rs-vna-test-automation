@@ -14,7 +14,7 @@ function StartMeasurementPage(props) {
           <form>
             <div className="form-group">
               <label>Serial No</label>
-              <input type="text" className="form-control"/>
+              <input id="serial-no" type="text" className="form-control"/>
             </div>
           </form>
         </div>

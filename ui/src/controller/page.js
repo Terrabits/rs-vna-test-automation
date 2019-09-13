@@ -1,13 +1,19 @@
 class Page {
-  constructor(name="SetupPage", step=-1) {
+  constructor(name='SetupPage', step=-1) {
     this.name = name;
     this.step = step
   }
   isCalibrating() {
-    return this.name === "PerformCalibrationPage";
+    return this.name === 'PerformCalibrationPage';
   }
   isMeasuring() {
-    return this.name === "MeasurePage";
+    if (this.name === 'PerformMeasurementPage') {
+      return true;
+    }
+    if (this.name === 'SaveMeasurementPage') {
+      return true;
+    }
+    return false;
   }
 }
 

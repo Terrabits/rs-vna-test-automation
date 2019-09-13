@@ -5,7 +5,7 @@ import Title     from './Title';
 function ChooseCalibrationPage(props) {
   let options = ['*New', 'None'];
   if (props.settings && props.settings.hasOwnProperty('options')) {
-    options = options.concat(props.settings.options);
+    options = options.concat(props.settings['options']);
   }
   const optionTags = options.map((i) => {
     return (

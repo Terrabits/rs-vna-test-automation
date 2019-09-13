@@ -14,7 +14,7 @@ function SaveCalibrationPage(props) {
           <form>
             <div className="form-group">
               <label>Cal Group Name</label>
-              <input type="text" className="form-control"/>
+              <input id="save-as-cal-group" type="text" className="form-control"/>
             </div>
           </form>
         </div>
