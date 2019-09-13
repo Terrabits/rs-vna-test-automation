@@ -62,6 +62,8 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
         for channel in self.vna.channels:
             ch        = self.vna.channel(channel)
             ports     = ch.ports_used()
+            if not ports:
+                continue
             extension = f's{len(ports)}p'
             filename  = str(save_path / f'{ch.name}.{extension}')
             ch.save_measurement_locally(filename, ports)
