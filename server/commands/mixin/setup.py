@@ -17,6 +17,9 @@ class SetupMixin(object):
         with open(filename, 'r') as f:
             for i, line in enumerate(f):
                 line = line.strip()
+                if not line or line.startswith('#'):
+                    # emtpy line or comment
+                    continue
                 if line.endswith('?'):
                     self.vna.query(line)
                 else:
