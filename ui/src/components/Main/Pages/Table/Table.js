@@ -5,14 +5,14 @@ function Table(props) {
   const headers     = props.headers;
   const header_tags = headers.map((header) => {
     return (
-      <th scope="col">{header}</th>
+      <th key={header} scope="col">{header}</th>
     )
   });
   const connections = props.connections;
   const connection_tags = Object.keys(connections).map((key) => {
     const value = connections[key];
     return (
-      <tr>
+      <tr key={key}>
         <td>{key}</td>
         <td>{value}</td>
       </tr>

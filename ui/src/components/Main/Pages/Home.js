@@ -2,7 +2,16 @@ import React from 'react';
 import Paragraph from './Paragraph';
 import Title     from './Title';
 
-function SetupPage(props) {
+function HomePage(props) {
+  const project = [];
+  if (!props.settings || !props.settings.hideProject) {
+    project.push((
+      <div key="project" className="form-group">
+        <label>Project</label>
+        <input id="project" className="form-control-file" type="file" name="project-filename"/>
+      </div>
+    ))
+  }
   return (
     <div>
       <Title display="Setup"/>
@@ -16,10 +25,7 @@ function SetupPage(props) {
               <label>VNA IP Address</label>
               <input id="address" className="form-control" type="text"/>
             </div>
-            <div className="form-group">
-              <label>Project</label>
-              <input id="project" className="form-control-file" type="file" name="project-filename"/>
-            </div>
+            {project}
             <p></p>
           </form>
         </div>
@@ -28,4 +34,4 @@ function SetupPage(props) {
   )
 }
 
-export default SetupPage;
+export default HomePage;

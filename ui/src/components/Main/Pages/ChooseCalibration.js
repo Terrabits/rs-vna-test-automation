@@ -2,14 +2,14 @@ import React     from 'react';
 import Paragraph from './Paragraph';
 import Title     from './Title';
 
-function ChooseCalPage(props) {
+function ChooseCalibrationPage(props) {
   let options = ['*New', 'None'];
   if (props.settings && props.settings.hasOwnProperty('options')) {
     options = options.concat(props.settings.options);
   }
   const optionTags = options.map((i) => {
     return (
-      <option value={i.toLowerCase()}>{i}</option>
+      <option key={i.toLowerCase()} value={i.toLowerCase()}>{i}</option>
     );
   })
   return (
@@ -35,4 +35,4 @@ function ChooseCalPage(props) {
   );
 }
 
-export default ChooseCalPage;
+export default ChooseCalibrationPage;

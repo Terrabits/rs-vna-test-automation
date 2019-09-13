@@ -2,25 +2,25 @@ import React     from 'react';
 import Paragraph from './Paragraph';
 import Title     from './Title';
 
-function SaveCalibrationPage(props) {
+function StartMeasurementPage(props) {
   return (
     <div>
-      <Title display="Save Calibration"/>
+      <Title display="Start Measurements"/>
       <Paragraph>
-        Calibration was successful! Please provide a name to save it.
+        Enter the serial number of the part, then click the <code>Next</code> button to continue.
       </Paragraph>
       <div className="row">
         <div className="offset-sm-3 col-sm-6">
           <form>
             <div className="form-group">
-              <label>Cal Group Name</label>
+              <label>Serial No</label>
               <input type="text" className="form-control"/>
             </div>
           </form>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default SaveCalibrationPage;
+export default StartMeasurementPage;

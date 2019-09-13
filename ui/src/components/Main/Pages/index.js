@@ -1,15 +1,18 @@
-import ChooseCalPage    from './ChooseCal';
-
-import MeasurePage      from './Measure';
+import ChooseCalibrationPage  from './ChooseCalibration';
+import HomePage               from './Home';
 import PerformCalibrationPage from './PerformCalibration';
-import SetupPage from './Setup';
-import SaveCalibrationPage from './SaveCalibration';
+import PerformMeasurementPage from './PerformMeasurement';
+import SaveCalibrationPage    from './SaveCalibration';
+import SaveMeasurementPage    from './SaveMeasurement';
+import StartMeasurementPage   from './StartMeasurement'
 
 const Pages = {
-  ChooseCalPage,
-  MeasurePage,
+  ChooseCalibrationPage,
+  HomePage,
   PerformCalibrationPage,
+  PerformMeasurementPage,
   SaveCalibrationPage,
-  SetupPage
+  SaveMeasurementPage,
+  StartMeasurementPage
 };
 export default Pages;

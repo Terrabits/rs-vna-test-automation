@@ -2,9 +2,22 @@ import Page from './page';
 
 class Controller {
   constructor(model, view) {
-    this.page = new Page();
+    this.page  = new Page();
     this.model = model;
     this.view  = view;
+    this.view.onBackClicked = (event) => {
+      if (event) {
+        event.preventDefault();
+      }
+      this.back();
+    };
+    this.view.onNextClicked = (event) => {
+      if (event) {
+        event.preventDefault();
+      }
+      this.next();
+    };
+    this.updateView();
   }
 
   // Home
@@ -50,6 +63,61 @@ class Controller {
   }
   back() {
     console.log('Controller.back()');
+  }
+  updatePage() {
+    console.log('Controller.updatePage()');
+  }
+  updateSidebarItems() {
+    console.log('Controller.updateSidebarItems()');
+    const items = [
+      {
+        text: "Home",
+        icon: "home",
+        active: false,
+        callback: null
+      },
+      {
+        text: "Calibrate",
+        icon: "tools",
+        active: true,
+        callback: null,
+        subitems: [
+          {
+            text: "Step 1",
+            active: false,
+            callback: null
+          },
+          {
+            text: "Step 2",
+            active: true,
+            callback: null
+          }
+        ]
+      },
+      {
+        text: "Measure",
+        icon: "pulse",
+        active: false,
+        callback: null,
+        subitems: [
+          {
+            text: "Step 1",
+            active: false,
+            callback: null
+          },
+          {
+            text: "Step 2",
+            active: false,
+            callback: null
+          }
+        ]
+      }
+    ];
+  }
+  updateView() {
+    console.log('Controller.updateView()');
+    this.updatePage();
+    this.updateSidebarItems();
   }
 }
 
