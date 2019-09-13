@@ -7,6 +7,7 @@ import Title     from './Title';
 
 function SaveMeasurementPage(props) {
   const serialNo = props.settings.serialNo || '{serialNo}';
+  const passed   = props.settings.passed   || false;
   let onClick = () => {
     console.log('SaveMeasurementPage.Download clicked')
   };
@@ -27,9 +28,14 @@ function SaveMeasurementPage(props) {
       </div>
     ));
   }
+  let status    = passed? 'passed'       :  'failed';
+  let className = passed? 'text-success' :  'text-danger';
   return (
     <div>
-      <Title display="Measurement Saved"/>
+      <Title display="Measurement Results"/>
+      <Paragraph className={className}>
+        Your part {status}.
+      </Paragraph>
       <Paragraph>
         The results for <code>{serialNo}</code> have been saved on machine <code>{window.location.hostname}</code>.
       </Paragraph>

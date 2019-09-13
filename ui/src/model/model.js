@@ -99,6 +99,9 @@ class Model {
     const scpi = `perform_measurement_step? ${index}\n`
     return await this.socket.query(scpi, toBool);
   }
+  async measurementPassed() {
+    return await this.socket.query('measurements_passed?\n', toBool);
+  }
   saveMeasurements(path=null) {
     path = path || '.';
     this.socket.send(`save_measurements ${path}\n`);

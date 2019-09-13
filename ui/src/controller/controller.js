@@ -136,6 +136,7 @@ class Controller {
         break;
       }
       case 'SaveMeasurementPage': {
+        this.model.saveMeasurements(`~/Documents/TestAutomation/${this.serialNo}`);
         this.page.name = 'StartMeasurementPage';
         this.page.step = -1;
         break;
@@ -182,6 +183,7 @@ class Controller {
       case 'SaveMeasurementPage':
         this.view.setPage('SaveMeasurementPage', {
           serialNo: this.serialNo,
+          passed:   await this.model.measurementPassed(),
           onClick:  () => console.log('Controller: SaveMeasurementPage.Download clicked!')
         })
         break;

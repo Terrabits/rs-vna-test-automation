@@ -20,11 +20,12 @@ class Start(CookiesMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
         self.raise_if_not_project()
 
         # args
-        cal_group_name = args['cal_group_name']
         serial_no      = args['serial_no']
+        cal_group_name = args['cal_group_name']
 
         # init cookies
         steps = len(self.project['measurements'])
+        self.cookies['serial_no']        = serial_no
         self.cookies['cal_group_name']   = cal_group_name
         self.cookies['results']          = {'serial_no': serial_no}
         self.cookies['results']['steps'] = [None] * steps

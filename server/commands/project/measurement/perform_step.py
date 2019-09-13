@@ -1,6 +1,11 @@
-from ...mixin                  import CommandMixin, CookiesMixin, ProjectMixin, SetupMixin, VnaMixin
-from pathlib                   import Path
-from instrument_server.command import Base
+from   ...mixin                  import CommandMixin, CookiesMixin, ProjectMixin, SetupMixin, VnaMixin
+from   .measurement              import global_limit_for, limit_str_for_trace
+from   .vna_patch                import nothing
+from   instrument_server.command import Base
+from   pathlib                   import Path
+import os
+
+root_save_path = Path(os.path.expanduser('~')) / 'Documents' / 'TestAutomation'
 
 class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
     def __init__(self, devices, **settings):
@@ -26,6 +31,15 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
         if index >= steps:
             raise self.command_error(f'index must be < {steps}')
 
+        # save path
+        serial_no = self.cookies['serial_no']
+        if len(self.project['measurements']) == 1:
+            save_path = root_save_path / serial_no
+        else:
+            step      = f'step_{index+1}'
+            save_path = root_save_path / serial_no / step
+        save_path.mkdir(parents=True, exist_ok=True)
+
         # setup
         if 'setup' in self.project['measurements'][index]:
             filename = self.project['measurements'][index]['setup']
@@ -38,37 +52,88 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
                 self.vna.channel(i).cal_group = cal_group_name
                 self.vna.channel(i).dissolve_cal_group_link()
 
-        # sweep
-        timeout_ms = 5*60*1000 # 5 mins ¯\_(ツ)_/¯
+        # configure for sweeps
         self.vna.manual_sweep = True
-        self.vna.start_sweeps()
-        self.vna.pause(timeout_ms)
+        self.vna.timeout_ms   = 5*60*1000 # 5 mins ¯\_(ツ)_/¯
 
-        results = {}
-        # limits: passed|failed
-        results['channels'] = []
+        # sweep channels
+        # save results
+        channel_results_list = []
         for channel in self.vna.channels:
-            results['channels'].append({})
-            # name:
-            # data:
-            #   ports: 4
-            #   contents: b''
+            ch        = self.vna.channel(channel)
+            ports     = ch.ports_used()
+            extension = f's{len(ports)}p'
+            filename  = str(save_path / f'{ch.name}.{extension}')
+            ch.save_measurement_locally(filename, ports)
+            channel_results = {
+                'name': ch.name,
+                'data': {
+                    'ports': ports,
+                    'contents': 'touchstone file contents goes here'
+                }
+            }
+            channel_results_list.append(channel_results)
 
-        results['diagrams'] = []
+        # save screenshot
+        filename = str(save_path / 'screenshot.png')
+        self.vna.save_screenshot_locally(filename, 'PNG')
+
+        # process diagrams
+        is_only_one_diagram  = len(self.vna.diagrams) == 1
+        diagram_results_list = []
+        diagram_limit_strs   = []
         for diagram in self.vna.diagrams:
-            results['diagrams'].append({})
-            # title:
-            # screenshot:
-            #   type: PNG
-            #   contents: ""
-            # limits: passed|failed
-            results['diagrams'][-1]['traces'] = []
-            for trace in self.vna.diagram(diagram).traces:
-                results['diagrams'][-1]['traces'].append([])
-                # results['diagrams'][-1]['traces'][-1]
-                #
-        self.cookies['results']['steps'][index] = results
+            d        = self.vna.diagram(diagram)
 
+            # edit by department of redundancy department
+            if not is_only_one_diagram:
+                title    = d.title or f'diagram {diagram}'
+                filename = str(save_path / f'{title}.png')
+                d.save_screenshot_locally(filename, 'PNG')
+
+            # save traces
+            trace_results_list  = []
+            trace_limit_strs    = []
+            for trace in d.traces:
+                t         = self.vna.trace(trace)
+                filename  = str(save_path / f'{t.name}.csv')
+                t.save_data_locally(filename)
+                limit_str = limit_str_for_trace(t)
+                trace_limit_strs.append(limit_str)
+                results       = {
+                    'name':      t.name,
+                    'parameter': str(t.parameter),
+                    'format':    str(t.format),
+                    'limits':    limit_str
+                };
+                trace_results_list.append(results)
+
+            # save diagram
+            limit_str = global_limit_for(trace_limit_strs)
+            results   = {
+                'title':  d.title,
+                'screenshot': {
+                    'type':     'PNG',
+                    'contents': 'base64 goes here'
+                },
+                'traces': trace_results_list,
+                'limits': limit_str
+            };
+            diagram_results_list.append(results);
+            diagram_limit_strs  .append(limit_str)
+
+        # step results
+        limit_str = global_limit_for(diagram_limit_strs)
+        results = {
+            'screenshot': {
+                'type':     'PNG',
+                'contents': 'base64 goes here'
+            },
+            'limits':    limit_str,
+            'channels':  channel_results_list,
+            'diagrams':  diagram_results_list
+        }
+        self.cookies['results']['steps'][index] = results
         return True
 
 IS_COMMAND_PLUGIN = True
