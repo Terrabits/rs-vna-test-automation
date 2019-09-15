@@ -1,7 +1,7 @@
 class Page {
   constructor(name='SetupPage', step=-1) {
     this.name = name;
-    this.step = step
+    this.step = step;
   }
   isCalibrating() {
     return this.name === 'PerformCalibrationPage';

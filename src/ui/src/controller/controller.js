@@ -62,7 +62,7 @@ class Controller {
     switch (this.page.name) {
       case 'HomePage': {
         const ipAddress       = this.view.ipAddress;
-        const projectFilename = '~/Documents/Node/test-automation/projects/cable-example/procedure.yaml'//TODO: this.view.projectFilename;
+        const projectFilename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml' //TODO ?
         if (await this.setup(ipAddress, projectFilename)) {
           this.page.name = "ChooseCalibrationPage";
         }
