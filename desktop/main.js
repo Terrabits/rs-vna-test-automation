@@ -1,8 +1,13 @@
 'use strict';
 
 const {app, BrowserWindow} = require('electron');
-const path                 = require('path')
-const url                  = require('url')
+const path                 = require('path');
+const ServerProcess        = require('./src/server-process');
+const url                  = require('url');
+const waitOn               = require('wait-on');
+
+// start the http server
+let serverProcess = new ServerProcess();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,8 +30,13 @@ function createWindow() {
     pathname: 'index.html',
     slashes: true
   });
-  mainWindow.loadURL(indexPath);
 
+  // Wait for test-automation server,
+  // then load url
+  // waitOn({resources: ['http-get://localhost:8080/index.html']}).then(() => {
+  //   mainWindow.loadURL(indexPath);
+  // });
+  mainWindow.loadURL(indexPath);
 
   // Don't show until we are ready and loaded
   mainWindow.once('ready-to-show', () => {

@@ -1,34 +1,35 @@
 {
-  "name": "rs-app-template",
-  "productName": "R&S App Template",
+  "name": "rs-vna-test-automation",
+  "productName": "R&S VNA Test Automation for Desktop",
   "version": "0.1.0",
-  "description": "",
+  "description": "Simple ATE for Rohde & Schwarz VNAs.",
   "author": "Nick Lalic",
-  "homepage": ".",
+  "homepage": "https://vna.rs-us.net/applications/test_automation.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com"
+    "url": "https://github.com/Terrabits/rs-vna-test-automation.git"
   },
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "commander": "^3.0.2"
+    "wait-on": "^3.3.0"
   },
   "scripts": {
-    "start": "concurrently \"serve -l 8080 -s server\" \"wait-on http://localhost:8080 && electron . --port 8080\"",
+    "start": "concurrently \"./server/test-automation --http-only\" \"electron .\"",
     "dist": "build"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
     "electron": "^5.0.4",
     "electron-builder": "^20.43.0",
-    "serve": "^11.0.2",
-    "wait-on": "^3.2.0"
+    "serve": "^11.0.2"
   },
   "build": {
+    "asar": false,
     "appId": "com.rohde-schwarz.test-automation-desktop",
     "productName": "R&S Test Automation for Desktop",
     "files": [
+      "src/**/*",
       "server/test-automation",
       "LICENSE.txt",
       "main.js"

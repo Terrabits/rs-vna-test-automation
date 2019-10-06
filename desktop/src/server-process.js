@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-const {exec, spawn} = require('child_process');
+const {execFile} = require('child_process');
 
-const filename = '/Users/lalic/Documents/Node/test-automation/desktop/server/test-automation';
+// TODO: answer these questions two
+// - server/test-automation in app.asar?
+// - execFile path relative to app.asar?
+const filename = 'server/test-automation';
 const args     = ['--http-only']
 const options  = {
   stdio: 'ignore',
@@ -11,7 +14,7 @@ const options  = {
 class ServerProcess {
   constructor() {
     this.data    = [];
-    this.process = exec(filename, args);
+    this.process = execFile(filename, args);
     this.process.stdout.on('data', (data) => {this.data.push(data)});
     this.process.on('error', (error) => console.log(`Error: ${error}`));
     this.process.on('close', (code)  => console.log(`Exit code: ${code}`));
