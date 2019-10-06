@@ -1,0 +1,59 @@
+{
+  "name": "rs-app-template",
+  "productName": "R&S App Template",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Nick Lalic",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com"
+  },
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "commander": "^3.0.2"
+  },
+  "scripts": {
+    "start": "concurrently \"serve -l 8080 -s server\" \"wait-on http://localhost:8080 && electron . --port 8080\"",
+    "dist": "build"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "electron": "^5.0.4",
+    "electron-builder": "^20.43.0",
+    "serve": "^11.0.2",
+    "wait-on": "^3.2.0"
+  },
+  "build": {
+    "appId": "com.rohde-schwarz.test-automation-desktop",
+    "productName": "R&S Test Automation for Desktop",
+    "files": [
+      "server/test-automation",
+      "LICENSE.txt",
+      "main.js"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "perMachine": true,
+      "menuCategory": "Rohde-Schwarz"
+    },
+    "extends": null
+  }
+}

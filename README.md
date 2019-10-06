@@ -1,7 +1,5 @@
 # R&S VNA Test Automation
 
-
-
 ## `server/`
 
 ### Build Requirements

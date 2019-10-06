@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# build src/ui
+cd $ROOT_DIR/src/ui
+npm run build
+
+# build server
+cd $ROOT_DIR/server
+pyinstaller server.spec --clean
+
+
+# build desktop
+cd $ROOT_DIR/desktop
+npm run dist

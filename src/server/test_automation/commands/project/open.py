@@ -1,6 +1,7 @@
 from   ..mixin                   import CommandMixin, ProjectMixin
 from   instrument_server.command import Base
 import os
+from   pathlib                   import Path
 from   ruamel                    import yaml
 
 class Open(ProjectMixin, CommandMixin, Base):

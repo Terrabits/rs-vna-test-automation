@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# src/ui
+rm -rf $ROOT_DIR/src/ui/build/*
+
+# src/server
+rm -rf $ROOT_DIR/src/server/build/*
+rm -rf $ROOT_DIR/src/server/dist/*
+
+# server
+rm -rf $ROOT_DIR/server/build/*
+rm -rf $ROOT_DIR/server/dist/*
+
+# desktop
+rm -rf $ROOT_DIR/desktop/build/*
+rm -rf $ROOT_DIR/desktop/dist/*
+
+find $ROOT_DIR -name '*.pyc'        -exec rm -rf {} +
+find $ROOT_DIR -name '.DS_Store'    -exec rm -rf {} +
+find $ROOT_DIR -name '__pycache__'  -exec rm -rf {} +

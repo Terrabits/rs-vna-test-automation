@@ -1,9 +1,11 @@
-const HOSTNAME      = window.location.hostname
-const PORT          = 61091;
-function url(hostname, port) {
-  return `ws://${hostname}:${port}`
+// note: window.location.host
+// includes port
+// (e.g. localhost:8080)
+function url(host) {
+  return `ws://${host}/socket`
 }
-const URL           = url(HOSTNAME, PORT);
+const HOST = window.location.host;
+const URL  = url(HOST);
 
 class Socket {
   constructor(url=null) {
@@ -57,16 +59,7 @@ class Socket {
     typefn = typefn || ((i) => { return i; });
     return new Promise((resolve, reject) => {
       this.socket.onmessage = (event) => {
-        const blob     = event.data;
-        const reader   = new FileReader();
-        reader.onload  = () => {
-          const result = typefn(reader.result);
-          resolve(result);
-        };
-        reader.onerror = () => {
-          reject();
-        };
-        reader.readAsText(blob);
+        resolve(typefn(event.data));
       };
     });
   }
