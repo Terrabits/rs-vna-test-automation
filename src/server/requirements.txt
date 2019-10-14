@@ -1,2 +1,2 @@
-instrument-server>=1.1.1
+instrument-server>=1.2.1
 rohdeschwarz
