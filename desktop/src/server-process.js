@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 const {execFile} = require('child_process');
+const path       = require('path');
 
 // TODO: answer these questions two
 // - server/test-automation in app.asar?
 // - execFile path relative to app.asar?
-const filename = 'server/test-automation';
+const filename = path.join(__dirname, '..', 'server', 'test-automation');
 const args     = ['--http-only']
 const options  = {
-  stdio: 'ignore',
-  windowsHide: true
+  // stdio: 'ignore',
+  // windowsHide: true
 };
 
 class ServerProcess {
@@ -20,7 +21,7 @@ class ServerProcess {
     this.process.on('close', (code)  => console.log(`Exit code: ${code}`));
   }
   get running() {
-    return this.process.running;
+    return this.process.exitCode == null;
   }
   kill(signal='SIGTERM') {
     this.process.kill(signal);
