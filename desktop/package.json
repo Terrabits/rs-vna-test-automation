@@ -15,22 +15,19 @@
     "wait-on": "^3.3.0"
   },
   "scripts": {
-    "start": "concurrently \"./server/test-automation --http-only\" \"electron .\"",
-    "dist": "build"
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
     "electron": "^5.0.4",
-    "electron-builder": "^20.43.0",
-    "serve": "^11.0.2"
+    "electron-builder": "^21.2.0"
   },
   "build": {
-    "asar": false,
     "appId": "com.rohde-schwarz.test-automation-desktop",
     "productName": "R&S Test Automation for Desktop",
     "files": [
       "src/**/*",
-      "server/test-automation",
+      "server/**/*",
       "LICENSE.txt",
       "main.js"
     ],
