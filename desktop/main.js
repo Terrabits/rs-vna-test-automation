@@ -1,5 +1,4 @@
 'use strict';
-
 const {app, BrowserWindow} = require('electron');
 const path                 = require('path');
 const ServerProcess        = require('./src/server-process');
@@ -14,6 +13,8 @@ let serverProcess = new ServerProcess();
 let mainWindow;
 
 function createWindow() {
+  console.log('createWindow()');
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1024, height: 768,
@@ -23,23 +24,9 @@ function createWindow() {
     }
   });
 
-  // and load the index.html of the app.
-  let indexPath = url.format({
-    protocol: 'http:',
-    host: 'localhost:8080',
-    pathname: 'index.html',
-    slashes: true
-  });
-
-  // Wait for test-automation server,
-  // then load url
-  // waitOn({resources: ['http-get://localhost:8080/index.html']}).then(() => {
-  //   mainWindow.loadURL(indexPath);
-  // });
-  mainWindow.loadURL(indexPath);
-
   // Don't show until we are ready and loaded
   mainWindow.once('ready-to-show', () => {
+    console.log('ready to show');
     mainWindow.show();
     // Open the DevTools automatically if developing
     if (process.argv.find((i) => { return i === '--open-devtools'; })) {
@@ -53,6 +40,16 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  });
+
+  // and load the index.html of the app.
+  const indexPath = 'http://localhost:8080/index.html';
+  serverProcess.available().then(() => {
+    mainWindow.loadURL(indexPath);
+  }).catch(() => {
+    mainWindow.destroy();
+    mainWindow = null;
+    console.log('The server is down!');
   });
 }
 

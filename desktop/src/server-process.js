@@ -1,37 +1,33 @@
-#!/usr/bin/env node
-const {execFile} = require('child_process');
-const path       = require('path');
+const {execFile, spawn} = require('child_process');
+const path    = require('path');
+const waitOn  = require('wait-on');
 
-// TODO: answer these questions two
-// - server/test-automation in app.asar?
-// - execFile path relative to app.asar?
 const filename = path.join(__dirname, '..', 'server', 'test-automation');
-const args     = ['--http-only']
+const args     = ['--http-only'];
 const options  = {
-  // stdio: 'ignore',
-  // windowsHide: true
+  // stdio: 'inherit'
 };
 
 class ServerProcess {
   constructor() {
-    this.data    = [];
-    this.process = execFile(filename, args);
-    this.process.stdout.on('data', (data) => {this.data.push(data)});
-    this.process.on('error', (error) => console.log(`Error: ${error}`));
-    this.process.on('close', (code)  => console.log(`Exit code: ${code}`));
+    this.process = execFile(filename, args, options);
   }
-  get running() {
-    return this.process.exitCode == null;
-  }
-  kill(signal='SIGTERM') {
+
+  kill(signal='SIGINT') {
     this.process.kill(signal);
   }
-}
 
-// p = spawn(, ['--http-only'], {stdio: 'inherit'});
-// p.stdout.on('data', (data) => console.log(`${data}`));
-// p.stderr.on('data', (data) => console.log(`${data}`));
-// p.on('error', (error) => console.log(`Error:     ${error}`))
-// p.on('close', (code)  => console.log(`Exit code: ${code}`));
+  available() {
+    if (this.process.exitCode !== null) {
+      return Promise.reject();
+    }
+    const opts = {
+      resources: ['http-get://localhost:8080/index.html'],
+      timeout: 6000,
+      window: 0
+    };
+    return waitOn(opts);
+  }
+}
 
 module.exports = ServerProcess;
