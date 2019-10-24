@@ -1,2 +1,2 @@
-aiohttp
-pyinstaller
+aiohttp==3.6.2
+pyinstaller==3.5
