@@ -11,9 +11,12 @@ npm run build
 
 # build server
 cd $ROOT_DIR/server
-pyinstaller server.spec --clean
-
+ln -s $ROOT_DIR/src/ui/build site
+pyinstaller --clean server.spec
 
 # build desktop
 cd $ROOT_DIR/desktop
+# ln -s $ROOT_DIR/server/dist/test-automation server
+mkdir -p server
+cp -r $ROOT_DIR/server/dist/test-automation/* server/
 npm run dist
