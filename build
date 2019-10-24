@@ -22,8 +22,17 @@ pyinstaller --clean server.spec
 
 # build desktop
 cd $ROOT_DIR/desktop
-# ln -s $ROOT_DIR/server/dist/test-automation server
+
+# NOT WORKING:
+#   ln -s $ROOT_DIR/server/dist/test-automation server
+# electron-builder won't follow symlink
 mkdir -p server
 cp -r $ROOT_DIR/server/dist/test-automation/* server/
+
+mkdir -p build
+cp -r assets/icons     build/
+cp    assets/icon.icns build/
+cp    assets/icon.ico  build/
+
 npm install
 npm run dist
