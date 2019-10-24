@@ -25,6 +25,7 @@
   "build": {
     "appId": "com.rohde-schwarz.test-automation-desktop",
     "productName": "R&S Test Automation for Desktop",
+    "asar": false,
     "files": [
       "src/**/*",
       "server/**/*",
