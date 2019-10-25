@@ -13,7 +13,7 @@ class IsOpen(ProjectMixin, CommandMixin, Base):
 
     def execute(self, received_command):
         args = self.args(received_command)
-        return bool(self.project)
+        return self.is_project
 
 IS_COMMAND_PLUGIN = True
 plugin            = IsOpen

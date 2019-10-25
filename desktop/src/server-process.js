@@ -1,16 +1,26 @@
 const {execFile, spawn} = require('child_process');
+const fs      = require('fs');
 const path    = require('path');
 const waitOn  = require('wait-on');
 
-const filename = path.join(__dirname, '..', 'server', 'test-automation');
-const args     = ['--http-only'];
+// paths
+const bin_filename     = path.join(__dirname, '..', 'server', 'test-automation');
+const project_filename = path.join(__dirname, '..', 'project', 'procedure.yaml');
+
+// execFile settings
+let   args     = ['--http-only'];
 const options  = {
   // stdio: 'inherit'
 };
 
+// permanent project?
+if (fs.existsSync(project_filename)) {
+  args = ['--project', project_filename].concat(args)
+}
+
 class ServerProcess {
   constructor() {
-    this.process = execFile(filename, args, options);
+    this.process = execFile(bin_filename, args, options);
   }
 
   kill(signal='SIGINT') {

@@ -3,8 +3,10 @@ import test_automation.commands.connection.connect
 import test_automation.commands.connection.disconnect
 import test_automation.commands.connection.is_connected
 import test_automation.commands.project.close
+import test_automation.commands.project.is_open_permanently
 import test_automation.commands.project.is_open
 import test_automation.commands.project.name
+import test_automation.commands.project.open_permanently
 import test_automation.commands.project.open
 import test_automation.commands.project.read
 import test_automation.commands.project.calibration.apply

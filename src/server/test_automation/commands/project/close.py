@@ -13,8 +13,7 @@ class Close(ProjectMixin, CommandMixin, Base):
 
     def execute(self, received_command):
         args = self.args(received_command)
-        self.raise_if_not_project()
-        self.project = None
+        self.close()
 
 IS_COMMAND_PLUGIN = True
 plugin            = Close

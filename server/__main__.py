@@ -7,7 +7,8 @@ import webbrowser
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="MFi USB-A to Lightning Cable tester")
-    parser.add_argument('--open-browser',   action="store_true")
+    parser.add_argument('--open-browser', action="store_true")
+    parser.add_argument('--project')
     parser.add_argument('--http-only',    action="store_true")
     parser.add_argument('--http-address', type=str, default="0.0.0.0")
     parser.add_argument('--http-port',    type=int, default=8080)
@@ -16,10 +17,13 @@ if __name__ == '__main__':
     parser.add_argument('--tcp-port',     type=int, default=5025)
     args = parser.parse_args()
 
+    # http_only and tcp_only are mutually exclusive
     if args.http_only and args.tcp_only:
         print('Cannot use --http-only AND --tcp-only: flags conflict!')
         parser.print_help()
+        sys.exit(1)
 
+    # start server(s)
     loop = asyncio.get_event_loop()
     try:
         on_close = loop.run_until_complete(create_app(args))

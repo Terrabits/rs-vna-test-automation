@@ -4,20 +4,17 @@ import os
 from   pathlib                   import Path
 from   ruamel                    import yaml
 
-class Open(ProjectMixin, CommandMixin, Base):
+class OpenPermanently(ProjectMixin, Base):
     def __init__(self, devices, **settings):
         Base        .__init__(self, devices, **settings)
-        CommandMixin.__init__(self, command='open_project', args={'filename': None})
         ProjectMixin.__init__(self)
+        if 'filename' in self.settings:
+            filename = self.settings['filename']
+            self.open_permanently(filename)
 
     @property
     def help_str(self):
-        return 'Open project:\n `open_project path/to/project/config.yaml`'
-
-    def execute(self, received_command):
-        args     = self.args(received_command)
-        filename = os.path.expanduser(args['filename'])
-        self.open(filename)
+        return 'Opens project permanently if filename is provided as a command plugin setting.'
 
 IS_COMMAND_PLUGIN = True
-plugin            = Open
+plugin            = OpenPermanently

@@ -154,7 +154,11 @@ class Controller {
     console.log('Controller.updatePage()');
     switch (this.page.name) {
       case 'HomePage':
-        this.view.setPage('HomePage', {hideProject: true})
+        let settings = {};
+        if (await this.model.isProjectOpenPermanently()) {
+          settings = {hideProject: true}
+        }
+        this.view.setPage('HomePage', settings)
         break;
       case 'ChooseCalibrationPage':
         const calGroups = await this.model.calGroups();

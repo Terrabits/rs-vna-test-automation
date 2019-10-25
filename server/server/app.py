@@ -4,6 +4,7 @@ from   .tcp        import start_server   as start_tcp_server
 from   .web_socket import create_handler as create_websocket_handler
 from   aiohttp     import web
 import asyncio
+from   instrument_server import Server
 from   pathlib     import Path
 import sys
 import test_automation
@@ -12,6 +13,13 @@ async def create_app(settings):
     # http, ws
     root_path         = Path(__file__).resolve().parent
     site_path         = str(root_path.parent / 'site')
+
+    # open project permanently?
+    if settings.project:
+        project_filename = settings.project
+        test_automation.config['plugins']['test_automation.commands.project.open_permanently']['filename'] = project_filename
+
+    # instrument server
     instrument_server = test_automation.new_server()
 
     on_close = []
@@ -33,14 +41,3 @@ async def create_app(settings):
         close_http   = await start_http_server(app, address, port)
         on_close.append(close_http)
     return on_close
-
-
-
-# if __name__ == '__main__':
-#     try:
-#         loop = asyncio.get_event_loop()
-#         loop.run_until_complete(main())
-#         loop.run_forever()
-#     except KeyboardInterrupt:
-#         pass
-#     sys.exit(0)

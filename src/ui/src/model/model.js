@@ -29,6 +29,9 @@ class Model {
   }
 
   // project
+  async isProjectOpenPermanently() {
+    return await this.socket.query('is_project_open_permanently?\n', toBool)
+  }
   async isProjectOpen() {
     return await this.socket.query('is_project_open?\n', toBool);
   }
