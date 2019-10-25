@@ -1,4 +1,5 @@
 name: Example Cable Test
+version: 1.0.0
 calibration:
   setup: setup/calibration.scpi
   ports: [1, 2, 3, 4]

@@ -9,6 +9,7 @@ import test_automation.commands.project.name
 import test_automation.commands.project.open_permanently
 import test_automation.commands.project.open
 import test_automation.commands.project.read
+import test_automation.commands.project.version
 import test_automation.commands.project.calibration.apply
 import test_automation.commands.project.calibration.cal_groups
 import test_automation.commands.project.calibration.cal_units

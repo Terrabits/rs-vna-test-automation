@@ -17,6 +17,7 @@ config['plugins'] = {
 'test_automation.commands.project.open_permanently':         {},
 'test_automation.commands.project.open':                     {},
 'test_automation.commands.project.read':                     {},
+'test_automation.commands.project.version':                  {},
 'test_automation.commands.project.calibration.apply':        {},
 'test_automation.commands.project.calibration.cal_groups':   {},
 # 'test_automation.commands.project.calibration.cal_unit_autodetect': {}
