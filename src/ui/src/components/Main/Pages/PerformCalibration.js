@@ -9,15 +9,10 @@ import Title     from './Title';
 // - headers
 // - connections
 function PerformCalibrationPage(props) {
-  // TODO: REMOVE 1337 LOREM IPSUM
-  const step  = props.settings.step  || 1;
-  const steps = props.settings.steps || 2;
-  const headers     = props.settings.headers     || ['VNA Port', 'Cal Unit Port'];
-  const connections = props.settings.connections ||
-                      {'1': '1',
-                       '3': '3',
-                       '2': '2',
-                       '4': '4'};
+  const step        = props.settings.step        || 0;
+  const steps       = props.settings.steps       || 0;
+  const headers     = props.settings.headers     || [];
+  const connections = props.settings.connections || {};
   return (
     <div>
       <Title display="Perform Calibration" step={step} steps={steps}/>
