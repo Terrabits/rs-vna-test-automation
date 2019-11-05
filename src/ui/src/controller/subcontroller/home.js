@@ -1,17 +1,7 @@
-import SubController from './subcontroller';
+import Subcontroller from './subcontroller';
 
-class Home extends SubController {
-  constructor(controller, settings={}) {
-    super(controller);
-    this.settings = settings;
-  }
+class HomeSubcontroller extends Subcontroller {
 
-  registerCallbacks() {
-    this.view.onHome
-  }
-  updateSubView() {
-
-  }
 }
 
-export default Home;
+export default HomeSubcontroller;
