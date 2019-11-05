@@ -23,17 +23,17 @@ class Controller {
     this.subcontrollers.push(subcontroller);
   }
   addSubcontrollers() {
-    for (let i=0; i < subcontrollers.length; i++) {
-      this.addSubcontroller(subcontrollers[i]);
-    }
+    subcontrollers.forEach((Subcontroller) => {
+      this.addSubcontroller(Subcontroller);
+    });
   }
 
   // view
   async updateView() {
     console.log('Controller.updateView()');
-    for (let i=0; i < this.subcontroller.length; i++) {
-      await this.subcontroller[i].updateSubview();
-    }
+    this.subcontrollers.forEach(async (subcontroller) => {
+      await subcontroller.updateSubview();
+    });
   }
 
   // callbacks
@@ -53,15 +53,15 @@ class Controller {
   }
   async next() {
     console.log('Controller.next()');
-    for (let i=0; i < this.subcontrollers.length; i++) {
-      await this.subcontrollers[i].onNextClicked();
-    }
+    this.subcontrollers.forEach(async (subcontroller) => {
+      await subcontroller.onNextClicked();
+    });
   }
   async back() {
     console.log('Controller.back()');
-    for (let i=0; i < this.subcontrollers.length; i++) {
-      await this.subcontrollers[i].onBackClicked();
-    }
+    this.subcontrollers.forEach(async (subcontroller) => {
+      await subcontroller.onBackClicked();
+    });
   }
   async navigateTo(destinationPage) {
     for (let i=0; i < this.subcontrollers.length; i++) {
