@@ -8,4 +8,4 @@ set -e
 set -x
 
 # remove all build folders
-rm -rf "$ROOT_DIR/../build*"
+rm -rf "$ROOT_DIR/../build"*
