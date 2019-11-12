@@ -15,7 +15,7 @@ set -x
 #   ln -s $ROOT_DIR/server/dist/test-automation server
 # electron-builder won't follow symlink
 mkdir -p "$ROOT_DIR/desktop/server"
-cp -r "$ROOT_DIR/server/dist/test-automation/*" "$ROOT_DIR/desktop/server/"
+cp -r "$ROOT_DIR/server/dist/test-automation/"* "$ROOT_DIR/desktop/server/"
 
 # build desktop
 "$ROOT_DIR/desktop/scripts/build"
