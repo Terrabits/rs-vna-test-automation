@@ -8,7 +8,7 @@ const bin_filename     = path.join(__dirname, '..', 'server', 'test-automation')
 const project_filename = path.join(__dirname, '..', 'project', 'procedure.yaml');
 
 // execFile settings
-let   args     = ['--http-only'];
+let   args     = ['--http-only', '--serve-dev'];
 const options  = {
   // stdio: 'inherit'
 };
