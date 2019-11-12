@@ -29,7 +29,7 @@ function createWindow() {
     console.log('ready to show');
     mainWindow.show();
     // Open the DevTools automatically if developing
-    if (process.argv.find((i) => { return i === '--open-devtools'; })) {
+    if (process.argv.includes('--open-devtools')) {
       mainWindow.webContents.openDevTools();
     }
   });

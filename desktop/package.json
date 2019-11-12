@@ -15,7 +15,7 @@
     "wait-on": "^3.3.0"
   },
   "scripts": {
-    "start": "electron .",
+    "start": "electron . --open-devtools",
     "dist": "electron-builder"
   },
   "devDependencies": {
