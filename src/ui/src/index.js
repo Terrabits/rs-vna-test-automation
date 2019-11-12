@@ -11,7 +11,6 @@ window.view       = ReactDOM.render(<App/>, document.getElementById('root'));
 window.model      = new Model();
 
 // model console.logs
-console.log('connecting to websocket...');
 // TODO: Remove 💩
 const isDevelopment = process.env.NODE_ENV === 'development';
 const open = isDevelopment ?
