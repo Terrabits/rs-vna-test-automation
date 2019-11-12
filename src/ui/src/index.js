@@ -11,7 +11,13 @@ window.view       = ReactDOM.render(<App/>, document.getElementById('root'));
 window.model      = new Model();
 
 // model console.logs
-window.model.socket.open().then(() => {
+console.log('connecting to websocket...');
+// TODO: Remove 💩
+const isDevelopment = process.env.NODE_ENV === 'development';
+const open = isDevelopment ?
+  window.model.socket.open('ws://localhost:8080/socket') // hot
+  : window.model.socket.open();                          // cold
+open.then(() => {
   window.controller = new Controller(window.model, window.view);
   window.model.socket.closed().then((event) => {
     console.log('model closed!');

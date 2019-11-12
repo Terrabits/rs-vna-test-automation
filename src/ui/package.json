@@ -25,8 +25,7 @@
     "wait-on": "^3.2.0"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"wait-on http://localhost:3000 && electron . --use-localhost-3000 --open-devtools\"",
-    "start-prod": "concurrently \"react-scripts start --production\" \"wait-on http://localhost:3000 && electron . --use-localhost-3000 --open-devtools\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "build-dev": "react-scripts build --development",
     "test": "react-scripts test",
