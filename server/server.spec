@@ -1,15 +1,17 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 from pathlib import Path
-root_path    = Path('.').resolve()
-site_path    = root_path / 'site'
+root_path      = Path('.').resolve()
+site_dev_path  = root_path / 'site.dev'
+site_prod_path = root_path / 'site.prod'
 
 block_cipher = None
 
 a = Analysis(['__main__.py'],
              pathex=[str(root_path)],
              binaries=[],
-             datas=[(str(site_path), 'site/')],
+             datas=[(str(site_dev_path),  'site.dev/' ),
+                    (str(site_prod_path), 'site.prod/')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],

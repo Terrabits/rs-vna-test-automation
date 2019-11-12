@@ -15,6 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('--tcp-only',     action="store_true")
     parser.add_argument('--tcp-address',  type=str, default="0.0.0.0")
     parser.add_argument('--tcp-port',     type=int, default=5025)
+    parser.add_argument('--serve-dev',    action="store_true")
     args = parser.parse_args()
 
     # http_only and tcp_only are mutually exclusive

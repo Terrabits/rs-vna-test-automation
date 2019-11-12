@@ -11,8 +11,10 @@ import test_automation
 
 async def create_app(settings):
     # http, ws
-    root_path         = Path(__file__).resolve().parent
-    site_path         = str(root_path.parent / 'site')
+    root_path      = Path(__file__).resolve().parent
+    site_dev_path  = str(root_path.parent / 'site.dev')
+    site_prod_path = str(root_path.parent / 'site.prod')
+    site_path = str(site_dev_path if settings.serve_dev else site_prod_path)
 
     # open project permanently?
     if settings.project:
