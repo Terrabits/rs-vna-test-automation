@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# exit on error
+# echo on
+set -e
+set -x
+
+# create links
+# ln -s final_path link_path
+ln -s "$ROOT_DIR/src/ui/build.dev"  "$ROOT_DIR/server/site.dev"
+ln -s "$ROOT_DIR/src/ui/build.prod" "$ROOT_DIR/server/site.prod"
+
+# install
+"$ROOT_DIR/src/server/scripts/install"
+"$ROOT_DIR/src/ui/scripts/install"
+"$ROOT_DIR/server/scripts/install"
+"$ROOT_DIR/desktop/scripts/install"

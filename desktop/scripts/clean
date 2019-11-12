@@ -7,4 +7,7 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -e
 set -x
 
-"$ROOT_DIR/clean" && "$ROOT_DIR/build"
+# remove all build folders
+cd "$ROOT_DIR/.."
+rm -rf build
+rm -rf dist

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# exit on error
+# echo on
+set -e
+set -x
+
+# remove build assets
+cd "$ROOT_DIR/.."
+rm -rf build/icons
+rm -rf build/icon.icns
+rm -rf build/icon.ico
+
+# replace build assets
+mkdir -p build
+cp -r assets/icons     build/
+cp    assets/icon.icns build/
+cp    assets/icon.ico  build/
+
+# build
+npm run dist

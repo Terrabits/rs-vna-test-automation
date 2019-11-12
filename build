@@ -3,36 +3,19 @@
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # exit on error
+# echo on
 set -e
+set -x
 
-# build src/ui
-cd $ROOT_DIR/src/ui
-npm install
-npm run build
-
-# install server
-cd $ROOT_DIR/src/server
-pip install -e .[dev]
-
-# build server
-cd $ROOT_DIR/server
-ln -s $ROOT_DIR/src/ui/build site
-pip install -r requirements.txt
-pyinstaller --clean server.spec
-
-# build desktop
-cd $ROOT_DIR/desktop
+# build src/ui, server
+"$ROOT_DIR/src/ui/scripts/build"
+"$ROOT_DIR/server/scripts/build"
 
 # NOT WORKING:
 #   ln -s $ROOT_DIR/server/dist/test-automation server
 # electron-builder won't follow symlink
-mkdir -p server
-cp -r $ROOT_DIR/server/dist/test-automation/* server/
+mkdir -p "$ROOT_DIR/desktop/server"
+cp -r "$ROOT_DIR/server/dist/test-automation/*" "$ROOT_DIR/desktop/server/"
 
-mkdir -p build
-cp -r assets/icons     build/
-cp    assets/icon.icns build/
-cp    assets/icon.ico  build/
-
-npm install
-npm run dist
+# build desktop
+"$ROOT_DIR/desktop/scripts/build"
