@@ -1,0 +1,3 @@
+[submodule "src/ui/lib/custom-create-react-app"]
+	path = src/ui/lib/custom-create-react-app
+	url = git@github.com:Terrabits/create-react-app.git
