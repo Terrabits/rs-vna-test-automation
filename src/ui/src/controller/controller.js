@@ -49,27 +49,31 @@ class Controller {
       }
       this.next();
     };
+    // TODO: handle sidebar callbacks
   }
   async next() {
     console.log('Controller.next()');
+    const originalPage = this.page;
     this.subcontrollers.forEach(async (subcontroller) => {
-      await subcontroller.onNextClicked();
+      await subcontroller.onNextClicked(originalPage);
     });
   }
   async back() {
     console.log('Controller.back()');
+    const originalPage = this.page;
     this.subcontrollers.forEach(async (subcontroller) => {
-      await subcontroller.onBackClicked();
+      await subcontroller.onBackClicked(originalPage);
     });
   }
-  async navigateTo(destinationPage) {
-    for (let i=0; i < this.subcontrollers.length; i++) {
-      if (this.subcontrollers[i].preventSidebarNavigation(destinationPage)) {
+  async changePage(originalPage, destinationPage) {
+    this.subcontrollers.forEach((subcontroller) => {
+      if (subcontroller.preventSidebarNavigation(originalPage, destinationPage)) {
         return;
       }
-    }
-    this.page = destinationPage;
-    await this.updateView();
+    });
+    this.subcontrollers.forEach((subcontroller) => {
+      subcontroller.onSidebarItemClicked(originalPage, destinationPage);
+    });
   }
 }
 

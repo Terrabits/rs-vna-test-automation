@@ -8,46 +8,41 @@ class Subcontroller {
   }
 
   // virtual
-  async onNextClicked() {
+  async onNextClicked(currentPage) {
     // handle next being clicked here
   }
 
   // virtual
-  async onBackClicked() {
+  async onBackClicked(currentPage) {
     // handle back being clicked here
   }
 
   // virtual
-  preventSidebarNavigation(destinationPage) {
-    // chance to prevent (cancel) sidebar navigation.
+  async onSidebarItemClicked(originalPage, destinationPage) {
+    // handle sidebar navigation here
+  }
+
+  // virtual
+  preventSidebarNavigation(originalPage, destinationPage) {
+    // return true to cancel pending sidebar navigation.
     return false;
   }
 
   // virtual
   async updateSubview() {
-    // update subview here
+    // handle update subview
   }
 
-  // update entire view
+  // update all (sub)views
   async updateView() {
     await this.controller.updateView();
   }
 
-  // is page {name}, [{step}]?
-  isPage(name, step=-1) {
-    if (this.controller.page.name !== name) {
-      // different pages
-      return false;
-    }
-
-    if (step === -1) {
-      // step is not used
-      return true;
-    }
-    else {
-      // steps must be equal
-      return this.controller.page.step === step;
-    }
+  get currentPage() {
+    return this.controller.page;
+  }
+  set currentPage(page) {
+    this.controller.page = page;
   }
 }
 

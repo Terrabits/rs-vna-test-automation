@@ -52,7 +52,9 @@ class Model {
     return response.trim().split(',').filter(booleanFilter);
   }
   async calUnits() {
-    return await this.socket.query('cal_units?\n', toNumber);
+    const response      = await this.socket.query('cal_units?\n');
+    const booleanFilter = (i) => { return Boolean(i); };
+    return response.trim().split(',').filter(booleanFilter);
   }
   async calibrationSteps() {
     return await this.socket.query('calibration_steps?\n', toNumber);
