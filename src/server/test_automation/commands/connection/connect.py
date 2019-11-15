@@ -1,6 +1,7 @@
 from ..mixin                      import CommandMixin, VnaMixin
 from instrument_server.command    import Base
 from rohdeschwarz.instruments.vna import Vna
+from socket import                error, herror, gaierror, timeout
 
 class Connect(VnaMixin, CommandMixin, Base):
     def __init__(self, devices, **settings):
@@ -25,6 +26,8 @@ class Connect(VnaMixin, CommandMixin, Base):
             vna.open_tcp(address)
             if not vna.connected():
                 raise self.command_error(f"cannot connect to '{address}'")
+        except (error, herror, gaierror, timeout):
+            raise self.command_error(f"socket error while connecting to '{address}'")
         except ConnectionError:
             raise self.command_error(f"connection error while connecting to '{address}'.")
         self.vna = vna
