@@ -1,5 +1,6 @@
 import React from 'react';
 import './Main.scss';
+import Alert from './Alert';
 import Pages from './Pages';
 
 function Main(props) {
@@ -9,7 +10,8 @@ function Main(props) {
   return(
     <main role="main" className="col-md-10 ml-sm-auto p-4">
       <div id="main">
-      <Page settings={props.settings}/>
+        <Alert ref={props.alertRef}/>
+        <Page settings={props.settings}/>
       </div>
     </main>
   );

@@ -25,12 +25,17 @@ const defaultSidebar = [{
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.alertRef = React.createRef();
     this.state = {
       onBackClicked: null,
       onNextClicked: null,
       pageName:      "HomePage",
       sidebarItems: defaultSidebar
     };
+  }
+
+  get alert() {
+    return this.alertRef.current;
   }
 
   // ip address input
@@ -141,7 +146,7 @@ class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <Sidebar items={this.sidebarItems}/>
-            <Main pageName={this.pageName} settings={this.settings}/>
+            <Main alertRef={this.alertRef} pageName={this.pageName} settings={this.settings}/>
           </div>
         </div>
         <Footer onBackClicked={this.onBackClicked} onNextClicked={this.onNextClicked}/>
