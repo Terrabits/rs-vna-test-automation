@@ -1,6 +1,7 @@
-import React from 'react';
-import Paragraph from './Paragraph';
-import Title     from './Title';
+import React          from 'react';
+import Paragraph      from './Paragraph';
+import preventDefault from './prevent-default';
+import Title          from './Title';
 
 function HomePage(props) {
   const project = [];
@@ -20,7 +21,7 @@ function HomePage(props) {
       </Paragraph>
       <div className="row">
         <div className="offset-sm-3 col-sm-6">
-          <form>
+          <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>VNA IP Address</label>
               <input id="ip-address" className="form-control" type="text"/>

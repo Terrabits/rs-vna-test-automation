@@ -1,6 +1,7 @@
-import React     from 'react';
-import Paragraph from './Paragraph';
-import Title     from './Title';
+import React          from 'react';
+import Paragraph      from './Paragraph';
+import preventDefault from './prevent-default';
+import Title          from './Title';
 
 function StartMeasurementPage(props) {
   return (
@@ -11,7 +12,7 @@ function StartMeasurementPage(props) {
       </Paragraph>
       <div className="row">
         <div className="offset-sm-3 col-sm-6">
-          <form>
+          <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>Serial No</label>
               <input id="serial-no" type="text" className="form-control"/>

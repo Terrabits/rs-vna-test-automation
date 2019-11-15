@@ -1,6 +1,7 @@
-import React     from 'react';
-import Paragraph from './Paragraph';
-import Title     from './Title';
+import React          from 'react';
+import Paragraph      from './Paragraph';
+import preventDefault from './prevent-default';
+import Title          from './Title';
 
 function ChooseCalibrationPage(props) {
   let options = ['*New', 'None'];
@@ -21,7 +22,7 @@ function ChooseCalibrationPage(props) {
       </Paragraph>
       <div className="row">
         <div className="offset-sm-3 col-sm-6">
-          <form>
+          <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>Calibration</label>
               <select id="calibration-select" className="form-control">
