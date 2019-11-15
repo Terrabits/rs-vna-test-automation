@@ -21,7 +21,7 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
     }
 
     // set cal group
-    if (calibration === 'None') {
+    if (calibration === '*None') {
       this.controller.calGroup = null;
     }
     else {
