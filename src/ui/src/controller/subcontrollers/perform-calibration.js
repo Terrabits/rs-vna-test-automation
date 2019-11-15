@@ -8,20 +8,23 @@ class PerformCalibrationSubcontroller extends Subcontroller {
     }
     console.log('PerformCalibration.onNextClicked');
     const steps = await this.model.calibrationSteps();
-    if (this.currentPage.step < 0) {
+    const step  = this.currentPage.step;
+    if (step < 0) {
       throw new Error('steps must be >= 0');
     }
-    if (this.currentPage.step >= steps) {
+    if (step >= steps) {
       throw new Error(`step must be < ${steps}`);
     }
-    const success = await this.model.performCalibrationStep(this.currentPage.step);
+    this.view.alert.show('light', `Performing calibration step ${step + 1}...`, false);
+    const success = await this.model.performCalibrationStep(step);
     if (!success) {
-      this.view.alert.show('danger', '*The current calibration step failed!');
+      this.view.alert.show('danger', `*Calibration step ${step} failed!`);
       return;
     }
+    this.view.alert.show('success', `Calibration step ${step + 1} complete.`);
     if (success && ++this.currentPage.step >= steps) {
       // ready to save
-      this.view.alert.show('info', 'Calibration steps are complete');
+      this.view.alert.show('success', 'Calibration steps are complete!');
       this.currentPage = new Page("SaveCalibrationPage");
     }
     this.updateView();

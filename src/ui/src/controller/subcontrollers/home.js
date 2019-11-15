@@ -27,7 +27,8 @@ class HomeSubcontroller extends Subcontroller {
     if (!isPermanentProject) {
       filename = this.view.projectFilename;
     }
-    // const projectFilename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml';
+    // TODO: fix broken feature 💩
+    filename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml';
     if (!isPermanentProject && !filename) {
       this.view.alert.show('danger', '*Project filename not entered!')
       return;

@@ -8,20 +8,23 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     }
     console.log('PerformMeasurement.onNextClicked');
     const steps = await this.model.measurementSteps();
-    if (this.currentPage.step < 0) {
-      throw new Error('steps must be >= 0');
+    const step  = this.currentPage.step;
+    if (step < 0) {
+      throw new Error('step must be >= 0');
     }
-    if (this.currentPage.step >= steps) {
+    if (step >= steps) {
       throw new Error(`step must be < ${steps}`);
     }
-    const success = await this.model.performMeasurementStep(this.currentPage.step);
+    this.view.alert.show('light', `performing measurement ${step + 1}...`, false);
+    const success = await this.model.performMeasurementStep(step);
     if (!success) {
-      this.view.alert.show('danger', '*Measurement could not be performed!');
+      this.view.alert.show('danger', `*Measurement step ${step + 1} could not be performed!`);
       return;
     }
+    this.view.alert.show('success', `*Measurement step ${step + 1} is complete!`);
     if (success && ++this.currentPage.step >= steps) {
       // ready to save
-      this.view.alert.show('info', '*Measurements complete');
+      this.view.alert.show('success', '*Measurements are complete!');
       this.currentPage = new Page('SaveMeasurementPage');
     }
     this.updateView();

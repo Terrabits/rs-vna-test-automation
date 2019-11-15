@@ -20,7 +20,7 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
         return;
       }
       // start new calibration
-      this.view.alert.show('info', 'Starting new calibration...');
+      this.view.alert.show('light', 'Starting new calibration...');
       this.model.startCalibration();
       this.currentPage = new Page('PerformCalibrationPage', 0);
       this.updateView();
@@ -29,7 +29,7 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
 
     // set cal group
     if (calibration === '*None') {
-      this.view.alert.show('danger', 'Starting measurements without calibration.');
+      this.view.alert.show('danger', 'Starting measurements without calibration!', false);
       this.controller.calGroup = null;
     }
     else {
