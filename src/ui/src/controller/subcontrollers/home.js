@@ -15,22 +15,41 @@ class HomeSubcontroller extends Subcontroller {
 
     // ip address
     const ipAddress = this.view.ipAddress;
-    console.assert(ipAddress, 'No IP address entered!');
+    if (!ipAddress) {
+      this.view.alert.show('danger', '*IP Address not entered!');
+      return;
+    }
 
     // project
     // TODO: replace 💩
-    const projectFilename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml';
-    console.assert(projectFilename, 'No project filename entered!');
+    const isPermanentProject = await this.model.isProjectOpenPermanently();
+    let filename = null;
+    if (!isPermanentProject) {
+      filename = this.view.projectFilename;
+    }
+    // const projectFilename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml';
+    if (!isPermanentProject && !filename) {
+      this.view.alert.show('danger', '*Project filename not entered!')
+      return;
+    }
 
     // connect to vna
     this.model.connectToVna(ipAddress);
     const isVnaConnected = await this.model.isVnaConnected();
-    console.assert(isVnaConnected, `Could not connect to VNA at ${ipAddress}`);
+    if (!isVnaConnected) {
+      this.view.alert.show('danger', `Could not connect to VNA at ${ipAddress}`);
+      return;
+    }
 
     // open project
-    this.model.openProject(projectFilename);
-    const isProjectOpen = await this.model.isProjectOpen();
-    console.assert(isProjectOpen, `Could not open project ${projectFilename}`);
+    if (!isPermanentProject) {
+      this.model.openProject(filename);
+      const isOpen = await this.model.isProjectOpen();
+      if (!isOpen) {
+        this.view.alert.show('danger', `Could not open project ${filename}`);
+        return;
+      }
+    }
 
     // move to calibration
     this.currentPage = new Page("ChooseCalibrationPage");
