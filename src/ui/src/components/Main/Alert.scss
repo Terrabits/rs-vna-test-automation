@@ -1,0 +1,6 @@
+@import '../../scss/bootstrap-variables.scss';
+
+div#alert {
+  margin-top:    -1 * $spacer;
+  margin-bottom: $spacer;
+}
