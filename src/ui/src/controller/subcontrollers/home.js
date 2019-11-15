@@ -52,6 +52,7 @@ class HomeSubcontroller extends Subcontroller {
     }
 
     // move to calibration
+    this.view.alert.show('success', '*VNA is connected')
     this.currentPage = new Page("ChooseCalibrationPage");
     this.updateView();
   }
