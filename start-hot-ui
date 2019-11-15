@@ -7,4 +7,5 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -e
 set -x
 
-(trap 'kill 0' SIGINT; "$ROOT_DIR/server/dist/test-automation/test-automation" & "$ROOT_DIR/src/ui/scripts/start")
+# start test-automation server, webpack dev server
+(trap 'kill 0' SIGINT; "$ROOT_DIR/server/dist/test-automation/test-automation" --http-only & "$ROOT_DIR/src/ui/scripts/start" >/dev/null 2>&1)
