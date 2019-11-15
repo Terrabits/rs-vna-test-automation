@@ -16,18 +16,19 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       // start new calibration
       this.model.startCalibration();
       this.currentPage = new Page('PerformCalibrationPage', 0);
+      this.updateView();
       return;
     }
 
     // set cal group
     if (calibration === 'None') {
-      this.calGroup = null;
+      this.controller.calGroup = null;
     }
     else {
-      this.calGroup = calibration;
+      this.controller.calGroup = calibration;
     }
-    this.page.name = 'StartMeasurementPage'
-    this.page.step = -1;
+    this.currentPage = new Page('StartMeasurementPage');
+    this.updateView();
   }
 
   async updateSubview() {
@@ -37,7 +38,6 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
 
     console.log('ChooseCalibrationPage.updateSubview');
     const calGroups = await this.model.calGroups();
-    console.log(`cal groups: ${calGroups}`);
     console.assert(calGroups !== undefined, 'No cal groups found!');
     this.view.setPage('ChooseCalibrationPage', {options: calGroups});
   }
