@@ -54,13 +54,13 @@ class SidebarSubcontroller extends Subcontroller {
     const isCalibrating = this.currentPage.is('PerformCalibrationPage')
                        || this.currentPage.is('SaveCalibrationPage');
     if (isCalibrating) {
-      const step  = this.currentPage.step;
+      const step  =       this.currentPage.step;
       const steps = await this.model.calibrationSteps();
       for (let i=0; i < steps; i++) {
         const subitem = {
           text:    `Step ${i+1}`,
-          active:   step === i,
-          callback: this.callbacks.generateForItem('Calibrate', step)
+          active:   i === step,
+          callback: this.callbacks.generateForItem('Calibrate', i)
         };
         calibrate['subitems'].push(subitem);
       }
@@ -75,14 +75,14 @@ class SidebarSubcontroller extends Subcontroller {
     const isMeasuring = this.currentPage.is('PerformMeasurementPage')
                      || this.currentPage.is('SaveMeasurementPage');
     if (isMeasuring) {
-      const step  = this.currentPage.step;
-      const steps = await this.model.measurementSteps();
-      const json  = await this.model.measurementStep(step);
+      const step  =         this.currentPage.step;
+      const steps =   await this.model.measurementSteps();
       for (let i=0; i < steps; i++) {
+        const json  = await this.model.measurementStep(i);
         const subitem = {
-          text:   json['name'],
-          active: step === i,
-          callback: this.callbacks.generateForItem('Measure', step)
+          text:     json['name'],
+          active:   step === i,
+          callback: this.callbacks.generateForItem('Measure', i)
         };
         measure['subitems'].push(subitem);
       }

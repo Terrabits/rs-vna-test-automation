@@ -61,19 +61,19 @@ class Model {
   }
   async calibrationStep(i) {
     if (i < 0) {
-      throw new Error('Calibration step must be >0');
+      throw new Error(`Calibration step must be >= 0. Received ${i}`);
     }
     const steps = await this.calibrationSteps();
-    if (i >= await this.calibrationSteps()) {
-      throw new Error(`Calibration step must be <${steps}`);
+    if (i >= steps) {
+      throw new Error(`Calibration step must be < ${steps}. Received ${i}`);
     }
     return await this.socket.query(`calibration_step? ${i}\n`, toJson);
   }
   startCalibration() {
     this.socket.send('start_calibration\n');
   }
-  async performCalibrationStep(step) {
-    const SCPI      = `perform_calibration_step? ${step}\n`;
+  async performCalibrationStep(i) {
+    const SCPI      = `perform_calibration_step? ${i}\n`;
     return await this.socket.query(SCPI, toBool);
   }
   async applyCalibration(calGroup=null) {
@@ -87,21 +87,33 @@ class Model {
   }
   async measurementStep(i) {
     if (i < 0) {
-      throw new Error('Measurement step must be >0');
+      throw new Error(`Measurement step must be >= 0. Received: ${i}`);
     }
     const steps = await this.measurementSteps();
     if (i >= steps) {
-      throw new Error(`Measurement step must be <${steps}`);
+      throw new Error(`Measurement step must be < ${steps}. Received: ${i}`);
     }
     return await this.socket.query(`measurement_step? ${i}\n`, toJson);
   }
   startMeasurementFor(serialNo, calGroup=null) {
+    serialNo = serialNo.trim();
+    if (!serialNo) {
+      throw new Error(`Serial number is required! Received: ${serialNo}`);
+    }
     calGroup = calGroup || '""';
     const scpi = `start_measurements_for ${serialNo} ${calGroup}\n`;
     this.socket.send(scpi);
   }
-  async performMeasurementStep(index) {
-    const scpi = `perform_measurement_step? ${index}\n`
+  async performMeasurementStep(i) {
+    if (i < 0) {
+      throw new Error(`Measurement step must be >= 0. Received: ${i}`);
+    }
+    const steps = await this.measurementSteps();
+    if (i >= steps) {
+      throw new Error(`Measurement step must be <= ${steps}. Received: ${i}`);
+    }
+
+    const scpi = `perform_measurement_step? ${i}\n`
     return await this.socket.query(scpi, toBool);
   }
   async measurementPassed() {
