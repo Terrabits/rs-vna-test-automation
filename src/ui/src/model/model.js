@@ -1,4 +1,4 @@
-import Socket from './socket';
+import SerialSocket from './serial-socket';
 
 // type conversions
 function toBool(result) {
@@ -14,7 +14,7 @@ function toNumber(result) {
 // promises abound.
 class Model {
   constructor() {
-    this.socket = new Socket();
+    this.socket = new SerialSocket();
   }
 
   // vna
