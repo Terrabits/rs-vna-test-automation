@@ -22,7 +22,7 @@ class SaveCalibrationSubcontroller extends Subcontroller {
     this.view.alert.show('success', '*Calibration saved.');
     this.controller.calGroup = calGroup;
     this.currentPage         = new Page("StartMeasurementPage");
-    this.updateView();
+    await this.updateView();
   }
 
   async updateSubview() {

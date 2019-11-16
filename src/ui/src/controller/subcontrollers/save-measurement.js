@@ -9,7 +9,7 @@ class SaveMeasurementSubcontroller extends Subcontroller {
     console.log('SaveMeasurement.onNextClicked');
     this.model.saveMeasurements(`~/Documents/TestAutomation/${this.controller.serialNo}`);
     this.currentPage = new Page('StartMeasurementPage');
-    this.updateView();
+    await this.updateView();
   }
 
   async updateSubview() {

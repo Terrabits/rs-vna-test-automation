@@ -8,4 +8,4 @@ set -e
 set -x
 
 # start test-automation server, webpack dev server
-(trap 'kill 0' SIGINT; "$ROOT_DIR/server/dist/test-automation/test-automation" --http-only & "$ROOT_DIR/src/ui/scripts/start" >/dev/null 2>&1)
+(trap 'kill 0' SIGINT; "$ROOT_DIR/server/dist/test-automation/test-automation" --http-only & "$ROOT_DIR/src/ui/scripts/start")

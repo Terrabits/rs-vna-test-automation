@@ -1,4 +1,4 @@
-class SidebarCallbacks {
+class Callbacks {
   constructor() {
     this.callbacks = {};
   }
@@ -37,5 +37,4 @@ class SidebarCallbacks {
   }
 }
 
-const callbacks = new SidebarCallbacks();
-export default callbacks;
+export default Callbacks;

@@ -23,7 +23,7 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       this.view.alert.show('light', 'Starting new calibration...');
       this.model.startCalibration();
       this.currentPage = new Page('PerformCalibrationPage', 0);
-      this.updateView();
+      await this.updateView();
       return;
     }
 
@@ -36,7 +36,22 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       this.controller.calGroup = calibration;
     }
     this.currentPage = new Page('StartMeasurementPage');
-    this.updateView();
+    await this.updateView();
+  }
+
+  preventSidebarNavigation(originalPage, destinationPage) {
+    if (!originalPage.is('ChooseCalibrationPage')) {
+      return false;
+    }
+    if (!destinationPage.is('StartMeasurementPage')) {
+      return false;
+    }
+    if (this.controller.calGroup !== undefined) {
+      return false;
+    }
+    // cal group is undefined
+    this.view.alert.show('danger', '*Choose calibration to continue');
+    return true;
   }
 
   async updateSubview() {

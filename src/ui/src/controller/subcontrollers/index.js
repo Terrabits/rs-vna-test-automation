@@ -1,3 +1,4 @@
+import BackSubcontroller               from './back';
 import ChooseCalibrationSubcontroller  from './choose-calibration';
 import HomeSubcontroller               from './home';
 import PerformCalibrationSubcontroller from './perform-calibration';
@@ -15,6 +16,7 @@ const subcontrollers = [
   StartMeasurementSubcontroller,
   PerformMeasurementSubcontroller,
   SaveMeasurementSubcontroller,
+  BackSubcontroller,
   SidebarSubcontroller
 ];
 

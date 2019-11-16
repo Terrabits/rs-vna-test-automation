@@ -16,7 +16,7 @@ class StartMeasurementSubcontroller extends Subcontroller {
     this.view.alert.show('light', `Starting measurements for serial no '${serialNo}'`);
     this.model.startMeasurementFor(this.controller.serialNo, this.controller.calGroup);
     this.currentPage = new Page('PerformMeasurementPage', 0);
-    this.updateView();
+    await this.updateView();
   }
 
   async updateSubview() {

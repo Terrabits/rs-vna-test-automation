@@ -90,7 +90,7 @@ class Model {
       throw new Error('Measurement step must be >0');
     }
     const steps = await this.measurementSteps();
-    if (i >= await this.measurementSteps()) {
+    if (i >= steps) {
       throw new Error(`Measurement step must be <${steps}`);
     }
     return await this.socket.query(`measurement_step? ${i}\n`, toJson);

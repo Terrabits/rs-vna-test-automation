@@ -27,18 +27,28 @@ class PerformMeasurementSubcontroller extends Subcontroller {
       this.view.alert.show('success', '*Measurements are complete!');
       this.currentPage = new Page('SaveMeasurementPage');
     }
-    this.updateView();
+    await this.updateView();
   }
 
   async updateSubview() {
     if (!this.currentPage.is('PerformMeasurementPage')) {
       return;
     }
+    console.log('perform-measurement.updateSubview()');
+    const step = this.currentPage.step;
+    console.log(`step: ${step}`);
+    const steps = await this.model.measurementSteps();
+    console.log(`steps: ${steps}`);
+    console.log(await this.model.isVnaConnected());
+    console.log(`json:         ${await this.model.measurementStep(step)}`);
+    console.log(`steps:        ${await this.model.measurementSteps()}`);
+    console.log(`json:         ${await this.model.measurementStep(step)}`);
     const settings = {
-      step:              this.currentPage.step + 1,
+      step:              step + 1,
       steps:       await this.model.measurementSteps(),
       connections: await this.model.measurementStep(this.currentPage.step)
     };
+    console.log('setting page...');
     this.view.setPage('PerformMeasurementPage', settings);
   }
 }

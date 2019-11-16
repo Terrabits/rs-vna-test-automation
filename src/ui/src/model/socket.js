@@ -53,17 +53,20 @@ class Socket {
     if (!this.isOpen()) {
       throw new Error('NOT OPEN!');
     }
+    console.log(`send: ${message}`);
     this.socket.send(message);
   }
   read(typefn=undefined) {
     typefn = typefn || ((i) => { return i; });
     return new Promise((resolve, reject) => {
       this.socket.onmessage = (event) => {
+        console.log(`read: ${event.data}`);
         resolve(typefn(event.data));
       };
     });
   }
   async query(message, typefn=undefined) {
+    this.socket.onmessage = null;
     this.send(message);
     return await this.read(typefn);
   }

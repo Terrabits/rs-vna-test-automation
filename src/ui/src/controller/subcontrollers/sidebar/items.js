@@ -1,4 +1,6 @@
-import callbacks from './sidebar-callbacks';
+import Callbacks from './callbacks';
+
+callbacks = new Callbacks();
 
 const items = [
   {

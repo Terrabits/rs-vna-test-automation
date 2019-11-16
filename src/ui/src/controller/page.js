@@ -17,6 +17,10 @@ class Page {
       return true;
     }
   }
+
+  copy() {
+    return new Page(this.name, this.step);
+  }
 }
 
 export default Page;

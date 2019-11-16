@@ -6,7 +6,7 @@ class Controller {
     // 💩 State that should probably
     // exist somewhere else.
     this.page     = new Page("HomePage");
-    this.calGroup = null;
+    this.calGroup = undefined;
 
     // constructor
     this.model          = model;
@@ -53,27 +53,36 @@ class Controller {
   }
   async next() {
     console.log('Controller.next()');
-    const originalPage = this.page;
+    this.view.alert.close();
+    const originalPage = this.page.copy();
     this.subcontrollers.forEach(async (subcontroller) => {
       await subcontroller.onNextClicked(originalPage);
     });
   }
   async back() {
     console.log('Controller.back()');
-    const originalPage = this.page;
+    this.view.alert.close();
+    const originalPage = this.page.copy();
     this.subcontrollers.forEach(async (subcontroller) => {
       await subcontroller.onBackClicked(originalPage);
     });
   }
-  async changePage(originalPage, destinationPage) {
-    this.subcontrollers.forEach((subcontroller) => {
+  async changePage(destinationPage) {
+    console.log(`controller.changePage(${destinationPage.name}, ${destinationPage.step})`);
+    this.view.alert.close();
+    const originalPage = this.page.copy();
+    // cycle through prevents and return if prevented
+    for (let i=0; i < this.subcontrollers.length; i++) {
+      const subcontroller = this.subcontrollers[i];
       if (subcontroller.preventSidebarNavigation(originalPage, destinationPage)) {
         return;
       }
-    });
-    this.subcontrollers.forEach((subcontroller) => {
-      subcontroller.onSidebarItemClicked(originalPage, destinationPage);
-    });
+    }
+    // process sidebarItemClickeds
+    for (let i=0; i < this.subcontrollers.length; i++) {
+      const subcontroller = this.subcontrollers[i];
+      await subcontroller.onSidebarItemClicked(originalPage, destinationPage);
+    }
   }
 }
 

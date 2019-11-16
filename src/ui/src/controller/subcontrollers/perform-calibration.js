@@ -27,20 +27,25 @@ class PerformCalibrationSubcontroller extends Subcontroller {
       this.view.alert.show('success', 'Calibration steps are complete!');
       this.currentPage = new Page("SaveCalibrationPage");
     }
-    this.updateView();
+    await this.updateView();
   }
 
   async updateSubview() {
     if (!this.currentPage.is('PerformCalibrationPage')) {
       return;
     }
-
+    console.log('updating perform calibration page info');
+    const steps = await this.model.calibrationSteps();
+    console.log(`  steps: ${steps}`)
+    const connections = await this.model.calibrationStep(this.currentPage.step);
+    console.log(`  connections: ${connections}`);
     const settings = {
       step:              this.currentPage.step + 1,
       steps:       await this.model.calibrationSteps(),
       headers:     ['VNA Port', 'Cal Unit Port'],
       connections: await this.model.calibrationStep(this.currentPage.step)
     };
+    console.log(`settings: ${settings}`);
     this.view.setPage('PerformCalibrationPage', settings);
   }
 }
