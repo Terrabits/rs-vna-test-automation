@@ -37,22 +37,26 @@ class SidebarSubcontroller extends Subcontroller {
   }
 
   async updateSubview() {
-    // TODO: update sidebar
-    const home = {
-      text: 'Home',
-      icon: 'home',
-      active: true,
+    // home
+    const isHome = this.currentPage.is('HomePage');
+    const home   = {
+      text:     'Home',
+      icon:     'home',
+      active:   isHome,
       callback: this.callbacks.generateForItem('Home')
     };
+
+    // calibrate
+    const isCalibrating   = this.currentPage.is('PerformCalibrationPage')
+                         || this.currentPage.is('SaveCalibrationPage');
+    const isCalibratePage = this.currentPage.is('ChooseCalibrationPage') || isCalibrating;
     const calibrate = {
       text: 'Calibrate',
       icon: 'tools',
-      active: false,
+      active: isCalibratePage,
       callback: this.callbacks.generateForItem('Calibrate'),
       subitems: []
     };
-    const isCalibrating = this.currentPage.is('PerformCalibrationPage')
-                       || this.currentPage.is('SaveCalibrationPage');
     if (isCalibrating) {
       const step  =       this.currentPage.step;
       const steps = await this.model.calibrationSteps();
@@ -65,15 +69,18 @@ class SidebarSubcontroller extends Subcontroller {
         calibrate['subitems'].push(subitem);
       }
     }
+
+    // Measure
+    const isMeasuring   = this.currentPage.is('PerformMeasurementPage')
+                       || this.currentPage.is('SaveMeasurementPage');
+    const isMeasurePage = this.currentPage.is('StartMeasurementPage') || isMeasuring;
     const measure = {
       text: "Measure",
       icon: "pulse",
-      active: false,
+      active: isMeasurePage,
       callback: this.callbacks.generateForItem("Measure"),
       subitems: []
     }
-    const isMeasuring = this.currentPage.is('PerformMeasurementPage')
-                     || this.currentPage.is('SaveMeasurementPage');
     if (isMeasuring) {
       const step  =         this.currentPage.step;
       const steps =   await this.model.measurementSteps();
@@ -87,8 +94,9 @@ class SidebarSubcontroller extends Subcontroller {
         measure['subitems'].push(subitem);
       }
     }
-    const items = [home, calibrate, measure];
-    this.view.sidebarItems = items;
+
+    // update
+    this.view.sidebarItems = [home, calibrate, measure];
   }
 }
 

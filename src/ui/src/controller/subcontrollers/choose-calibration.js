@@ -29,7 +29,6 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
 
     // set cal group
     if (calibration === '*None') {
-      this.view.alert.show('danger', 'Starting measurements without calibration!', false);
       this.controller.calGroup = null;
     }
     else {

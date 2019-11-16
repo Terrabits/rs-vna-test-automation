@@ -23,6 +23,9 @@ class StartMeasurementSubcontroller extends Subcontroller {
     if (!this.currentPage.is('StartMeasurementPage')) {
       return;
     }
+    if (!this.controller.calGroup) {
+      this.view.alert.show('danger', 'Warning: no calibration!', false);
+    }
     this.view.setPage('StartMeasurementPage');
   }
 }
