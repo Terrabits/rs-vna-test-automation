@@ -34,6 +34,10 @@ class HomeSubcontroller extends Subcontroller {
       return;
     }
 
+    // close any previously opened projects
+    this.model.closeProject();
+    this.model.disconnectFromVna();
+
     // connect to vna
     this.model.connectToVna(ipAddress);
     const isVnaConnected = await this.model.isVnaConnected();
@@ -69,12 +73,8 @@ class HomeSubcontroller extends Subcontroller {
     if (!this.currentPage.is('HomePage')) {
       return;
     }
-
-    let settings = {};
-    if (await this.model.isProjectOpenPermanently()) {
-      settings = {hideProject: true};
-    }
-    this.view.setPage('HomePage', settings);
+    const hideProject = await this.model.isProjectOpenPermanently();
+    this.view.setPage('HomePage', {hideProject});
   }
 }
 
