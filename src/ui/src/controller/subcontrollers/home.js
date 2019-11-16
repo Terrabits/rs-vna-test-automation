@@ -4,7 +4,8 @@ import Subcontroller from './subcontroller';
 class HomeSubcontroller extends Subcontroller {
   constructor(model, view, controller) {
     super(model, view, controller);
-    this.view.ipAddress = 'localhost';
+    this.controller.ipAddress = 'localhost';
+    this.controller.filename  = '';
   }
 
   async onNextClicked(originalPage) {
@@ -56,6 +57,10 @@ class HomeSubcontroller extends Subcontroller {
       }
     }
 
+    // save address, project
+    this.controller.ipAddress = ipAddress;
+    this.controller.filename  = filename;
+
     // move to calibration
     this.view.alert.show('success', '*VNA is connected')
     this.currentPage = new Page("ChooseCalibrationPage");
@@ -73,8 +78,10 @@ class HomeSubcontroller extends Subcontroller {
     if (!this.currentPage.is('HomePage')) {
       return;
     }
-    const hideProject = await this.model.isProjectOpenPermanently();
+    const hideProject   = await this.model.isProjectOpenPermanently();
     this.view.setPage('HomePage', {hideProject});
+    this.view.ipAddress = this.controller.ipAddress;
+    // TODO: display current project filename?
   }
 }
 

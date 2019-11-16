@@ -60,8 +60,11 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
 
     console.log('ChooseCalibrationPage.updateSubview');
     const calGroups = await this.model.calGroups();
-    console.assert(calGroups !== undefined, 'No cal groups found!');
     this.view.setPage('ChooseCalibrationPage', {options: calGroups});
+
+    // update choice (default: *New)
+    const choice          = this.controller.calGroup ? this.controller.calGroup : '*New';
+    this.view.calibration = choice;
   }
 }
 
