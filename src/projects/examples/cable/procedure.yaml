@@ -1,4 +1,4 @@
-name: Example Cable Test
+name: Cable Test
 version: 1.0.0
 calibration:
   setup: setup/calibration.scpi
@@ -6,7 +6,7 @@ calibration:
   save_as: cable_test-{timestamp}
 measurements:
   - setup: setup/measurement_step_1.scpi
-    name: Data lines
+    name: data
     image: image/measurement/step_1.jpg
     connections:
       1: J1  (connector a, D+)
@@ -14,7 +14,7 @@ measurements:
       2: J11 (connector b, D+)
       4: J12 (connector b, D-)
   - setup: setup/measurement_step_2.scpi
-    name: Clock
+    name: clock
     image: image/measurement/step_2.jpg
     connections:
       1: J3  (connector a, CLK)
