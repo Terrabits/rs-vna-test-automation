@@ -3,21 +3,21 @@ version: 1.0.0
 calibration:
   setup: setup/calibration.scpi
   ports: [1, 2, 3, 4]
-  save_as: usba_usbc-{timestamp}
+  save_as: cable_test-{timestamp}
 measurements:
   - setup: setup/measurement_step_1.scpi
-    name: Step 1
+    name: Data lines
     image: image/measurement/step_1.jpg
     connections:
-      1: USB-A D+
-      3: USB-A D-
-      2: USB-C D+
-      4: USB-C D-
+      1: J1  (connector a, D+)
+      3: J2  (connector a, D-)
+      2: J11 (connector b, D+)
+      4: J12 (connector b, D-)
   - setup: setup/measurement_step_2.scpi
-    name: Step 2
+    name: Clock
     image: image/measurement/step_2.jpg
     connections:
-      1: USB-A D+
-      3: USB-A D-
-      2: USB-C D+
-      4: USB-C D-
+      1: J3  (connector a, CLK)
+      3: J4  (connector a, GND)
+      2: J13 (connector b, CLK)
+      4: J14 (connector b, GND)
