@@ -6,7 +6,7 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     if (!originalPage.is('PerformMeasurementPage')) {
       return;
     }
-    
+
     const steps = await this.model.measurementSteps();
     const step  = this.currentPage.step;
     if (step < 0) {
@@ -39,9 +39,9 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     const steps = await this.model.measurementSteps();
     const json  = await this.model.measurementStep(step);
     const settings = {
-      step:        step + 1,
+      step:        step,
       steps:       steps,
-      connections: json
+      connections: json.connections
     };
     this.view.setPage('PerformMeasurementPage', settings);
   }

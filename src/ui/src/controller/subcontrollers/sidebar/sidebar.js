@@ -79,11 +79,12 @@ class SidebarSubcontroller extends Subcontroller {
       subitems: []
     };
     if (isMeasuring) {
-      const step  =         this.currentPage.step;
-      const steps =   await this.model.measurementSteps();
+      const step  =       this.currentPage.step;
+      const steps = await this.model.measurementSteps();
       for (let i=0; i < steps; i++) {
+        const json = await this.model.measurementStep(i);
         const subitem = {
-          text:     `Step ${i+1}`,
+          text:     json.name,
           active:   i === step,
           callback: this.callbacks.generateForItem('Measure', i)
         };

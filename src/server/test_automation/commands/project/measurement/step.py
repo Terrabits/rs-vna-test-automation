@@ -22,7 +22,7 @@ class Step(ProjectMixin, CommandMixin, Base):
         if index >= steps:
             raise self.command_error(f"index must be < {steps}")
 
-        return json.dumps(self.project['measurements'][index]['connections'])
+        return json.dumps(self.project['measurements'][index])
 
 IS_COMMAND_PLUGIN = True
 plugin            = Step
