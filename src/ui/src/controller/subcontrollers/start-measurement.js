@@ -6,7 +6,7 @@ class StartMeasurementSubcontroller extends Subcontroller {
     if (!originalPage.is('StartMeasurementPage')) {
       return;
     }
-    console.log('StartMeasurement.onNextClicked');
+
     const serialNo = this.view.serialNo;
     if (!serialNo) {
       this.view.alert.show('danger', '*No serial number entered!');

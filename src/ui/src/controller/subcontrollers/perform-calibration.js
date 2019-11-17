@@ -6,7 +6,7 @@ class PerformCalibrationSubcontroller extends Subcontroller {
     if (!originalPage.is('PerformCalibrationPage')) {
       return;
     }
-    console.log('PerformCalibration.onNextClicked');
+
     const steps = await this.model.calibrationSteps();
     const step  = this.currentPage.step;
     if (step < 0) {
@@ -34,18 +34,11 @@ class PerformCalibrationSubcontroller extends Subcontroller {
     if (!this.currentPage.is('PerformCalibrationPage')) {
       return;
     }
-    console.log('updating perform calibration page info');
-    const steps = await this.model.calibrationSteps();
-    console.log(`  steps: ${steps}`)
+    const step        =       this.currentPage.step + 1;
+    const steps       = await this.model.calibrationSteps();
+    const headers     = ['VNA Port', 'Cal Unit Port'];
     const connections = await this.model.calibrationStep(this.currentPage.step);
-    console.log(`  connections: ${connections}`);
-    const settings = {
-      step:              this.currentPage.step + 1,
-      steps:       await this.model.calibrationSteps(),
-      headers:     ['VNA Port', 'Cal Unit Port'],
-      connections: await this.model.calibrationStep(this.currentPage.step)
-    };
-    console.log(`settings: ${settings}`);
+    const settings    = {step, steps, headers, connections};
     this.view.setPage('PerformCalibrationPage', settings);
   }
 }

@@ -54,12 +54,12 @@ class SerialSocket {
     next.resolve();
   }
   _onError(event) {
-    console.log(`socket error: ${event}`);
+    console.log(`error: ${event}`);
     const next = this.promises.shift();
     next.reject(event);
   }
   _onMessage(event) {
-    console.log(`socket message: ${event.data}`);
+    console.log(`recv: ${event.data}`);
     const next = this.promises.shift();
     next.resolve(next.typefn(event.data));
   }

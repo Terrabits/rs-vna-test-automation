@@ -6,16 +6,12 @@ import Paragraph from './Paragraph';
 import Title     from './Title';
 
 function SaveMeasurementPage(props) {
-  const serialNo = props.settings.serialNo || '{serialNo}';
-  const passed   = props.settings.passed   || false;
-  let onClick = () => {
-    console.log('SaveMeasurementPage.Download clicked')
-  };
-  if (props.settings && props.settings.hasOwnProperty('onClick')) {
-    onClick = props.settings.onClick;
-  }
+  const settings = props.settings    || {};
+  const serialNo = settings.serialNo || '';
+  const passed   = settings.passed   || false;
+  const onClick  = settings.onClick  || null;
   const download = [];
-  if (props.settings && !props.settings['hideDownload']) {
+  if (!settings.hideDownload) {
     const icon = getIconByName('cloud-download');
     download.push((
       <div key="download-button">
@@ -28,8 +24,8 @@ function SaveMeasurementPage(props) {
       </div>
     ));
   }
-  let status    = passed? 'passed'       :  'failed';
-  let className = passed? 'text-success' :  'text-danger';
+  let status    = passed ? 'passed'       :  'failed';
+  let className = passed ? 'text-success' :  'text-danger';
   return (
     <div>
       <Title display="Measurement Results"/>

@@ -9,11 +9,9 @@ class SidebarSubcontroller extends Subcontroller {
     // register callbacks to changePage
     this.callbacks = new Callbacks();
     this.callbacks.setFor('Home', (index) => {
-      console.log('sidebar.home clicked');
       this.controller.changePage(new Page('HomePage'));
     });
     this.callbacks.setFor('Calibrate', (index) => {
-      console.log(`sidebar.calibrate(${index}) clicked`);
       if (index === null) {
         this.controller.changePage(new Page('ChooseCalibrationPage'));
       }
@@ -22,7 +20,6 @@ class SidebarSubcontroller extends Subcontroller {
       }
     });
     this.callbacks.setFor('Measure', (index) => {
-      console.log(`sidebar.measure(${index}) clicked`);
       if (index === null) {
         this.controller.changePage(new Page('StartMeasurementPage'));
       }
@@ -82,7 +79,6 @@ class SidebarSubcontroller extends Subcontroller {
       subitems: []
     };
     if (isMeasuring) {
-      console.log('measuring sidebar...');
       const step  =         this.currentPage.step;
       const steps =   await this.model.measurementSteps();
       for (let i=0; i < steps; i++) {
@@ -91,7 +87,6 @@ class SidebarSubcontroller extends Subcontroller {
           active:   i === step,
           callback: this.callbacks.generateForItem('Measure', i)
         };
-        console.log(`  pushing subitem: ${subitem['text']}`);
         measure['subitems'].push(subitem);
       }
     }

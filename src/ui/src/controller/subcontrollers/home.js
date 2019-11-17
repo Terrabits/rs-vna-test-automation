@@ -12,8 +12,7 @@ class HomeSubcontroller extends Subcontroller {
     if (!originalPage.is('HomePage')) {
       return;
     }
-    console.log('Home.onNextClicked');
-
+    
     // ip address
     const ipAddress = this.view.ipAddress;
     if (!ipAddress) {

@@ -7,7 +7,6 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       return;
     }
 
-    console.log('ChooseCalibrationPage.onNextClicked');
     const calibration = this.view.calibration;
     if (calibration === '*New') {
       const calUnits = await this.model.calUnits();
@@ -58,11 +57,11 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       return;
     }
 
-    console.log('ChooseCalibrationPage.updateSubview');
+    // update page, cal groups
     const calGroups = await this.model.calGroups();
     this.view.setPage('ChooseCalibrationPage', {options: calGroups});
 
-    // update choice (default: *New)
+    // update selected choice (default: *New)
     const choice          = this.controller.calGroup ? this.controller.calGroup : '*New';
     this.view.calibration = choice;
   }

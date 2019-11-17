@@ -7,7 +7,6 @@ class SaveCalibrationSubcontroller extends Subcontroller {
       return;
     }
 
-    console.log('SaveCalibration.onNextClicked');
     const calGroup = this.view.saveAsCalGroup;
     if (!calGroup) {
       this.view.alert.show('danger', '*Cal group name not entered!');

@@ -3,7 +3,6 @@ import Subcontroller from './subcontroller';
 
 class BackSubcontroller extends Subcontroller {
   async onBackClicked(originalPage) {
-    console.log('Back.onBackClicked');
     let destinationPage = null;
     const step          = originalPage.step;
     switch(originalPage.name) {
@@ -39,7 +38,6 @@ class BackSubcontroller extends Subcontroller {
       default:
         throw new Error(`Error processing onBackClicked with originalPage: (${originalPage.name}, ${originalPage.step})`);
     }
-    console.log(`  changing from ${originalPage.name} to ${destinationPage.name}`);
     this.controller.changePage(destinationPage);
   }
 

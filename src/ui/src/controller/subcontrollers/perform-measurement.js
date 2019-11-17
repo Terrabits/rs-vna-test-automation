@@ -6,7 +6,7 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     if (!originalPage.is('PerformMeasurementPage')) {
       return;
     }
-    console.log('PerformMeasurement.onNextClicked');
+    
     const steps = await this.model.measurementSteps();
     const step  = this.currentPage.step;
     if (step < 0) {

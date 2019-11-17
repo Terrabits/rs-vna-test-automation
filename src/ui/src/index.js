@@ -10,7 +10,6 @@ import Controller   from './controller';
 window.view       = ReactDOM.render(<App/>, document.getElementById('root'));
 window.model      = new Model();
 
-// model console.logs
 // TODO: Remove 💩
 const isDevelopment = process.env.NODE_ENV === 'development';
 const url  = isDevelopment ?
