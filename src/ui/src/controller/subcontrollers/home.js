@@ -29,6 +29,7 @@ class HomeSubcontroller extends Subcontroller {
     }
     // TODO: fix broken feature 💩
     filename = '~/Documents/Node/test-automation/src/projects/examples/cable/procedure.yaml';
+    // filename = '~/Documents/TestAutomation/mfi-projects/cables/a-lightning/procedure.yaml';
     if (!isPermanentProject && !filename) {
       this.view.alert.show('danger', '*Project filename not entered!')
       return;
