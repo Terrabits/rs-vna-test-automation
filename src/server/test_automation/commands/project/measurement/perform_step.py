@@ -5,8 +5,6 @@ from   instrument_server.command import Base
 from   pathlib                   import Path
 import os
 
-root_save_path = Path(os.path.expanduser('~')) / 'Documents' / 'TestAutomation'
-
 class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
     def __init__(self, devices, **settings):
         Base        .__init__(self, devices, **settings)
@@ -31,15 +29,6 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
         if index >= steps:
             raise self.command_error(f'index must be < {steps}')
 
-        # save path
-        serial_no = self.cookies['serial_no']
-        if len(self.project['measurements']) == 1:
-            save_path = root_save_path / serial_no
-        else:
-            step      = f'step_{index+1}'
-            save_path = root_save_path / serial_no / step
-        save_path.mkdir(parents=True, exist_ok=True)
-
         # setup
         if 'setup' in self.project['measurements'][index]:
             filename = self.project['measurements'][index]['setup']
@@ -52,6 +41,12 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
                 self.vna.channel(i).cal_group = cal_group_name
                 self.vna.channel(i).dissolve_cal_group_link()
 
+        # paths
+        step_name = self.project['measurements'][index]['name']
+        paths     = self.cookies['save_paths']
+        paths.mk_data_dir_p   (step_name)
+        paths.mk_diagram_dir_p(step_name)
+
         # configure for sweeps
         self.vna.manual_sweep = True
         self.vna.timeout_ms   = 5*60*1000 # 5 mins ¯\_(ツ)_/¯
@@ -60,12 +55,12 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
         # save results
         channel_results_list = []
         for channel in self.vna.channels:
+            step_name = self.project['measurements'][index]['name']
             ch        = self.vna.channel(channel)
             ports     = ch.ports_used()
             if not ports:
                 continue
-            extension = f's{len(ports)}p'
-            filename  = str(save_path / f'{ch.name}.{extension}')
+            filename = paths.channel_filename_for(step_name, ch.name, len(ports))
             ch.save_measurement_locally(filename, ports)
             channel_results = {
                 'name': ch.name,
@@ -77,7 +72,7 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
             channel_results_list.append(channel_results)
 
         # save screenshot
-        filename = str(save_path / 'screenshot.png')
+        filename = paths.screenshot_filename_for(step_name, 'png')
         self.vna.save_screenshot_locally(filename, 'PNG')
 
         # process diagrams
@@ -85,12 +80,12 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
         diagram_results_list = []
         diagram_limit_strs   = []
         for diagram in self.vna.diagrams:
-            d        = self.vna.diagram(diagram)
+            d = self.vna.diagram(diagram)
 
             # edit by department of redundancy department
             if not is_only_one_diagram:
                 title    = d.title or f'diagram {diagram}'
-                filename = str(save_path / f'{title}.png')
+                filename = paths.diagram_filename_for(step_name, title, 'png')
                 d.save_screenshot_locally(filename, 'PNG')
 
             # save traces
@@ -98,7 +93,7 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
             trace_limit_strs    = []
             for trace in d.traces:
                 t         = self.vna.trace(trace)
-                filename  = str(save_path / f'{t.name}.csv')
+                filename  = paths.trace_filename_for(step_name, t.name)
                 t.save_data_locally(filename)
                 limit_str = limit_str_for_trace(t)
                 trace_limit_strs.append(limit_str)

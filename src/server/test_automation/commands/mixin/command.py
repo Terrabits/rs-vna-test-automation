@@ -11,9 +11,9 @@ class CommandMixin(object):
     def args(self, received_command):
         values = received_command.decode().strip().split()[1:]
         if len(values) < len(self._args):
-            raise self.command_error('Too few arguments')
+            raise self.command_error('Too few arguments', received_command)
         if len(values) > len(self._args):
-            raise self.command_error('Too many arguments')
+            raise self.command_error('Too many arguments', received_command)
 
         args = {}
         for name, type, value in zip(self._args.keys(), self._args.values(), values):
@@ -21,7 +21,7 @@ class CommandMixin(object):
                 try:
                     typed_value = type(value)
                 except (TypeError, ValueError) as ex:
-                    raise self.command_error(f"'{value}' is not a valid {type}")
+                    raise self.command_error(f"'{value}' is not a valid {type}", received_command)
                 args[name] = typed_value
             else:
                 # str
@@ -32,5 +32,7 @@ class CommandMixin(object):
                 args[name] = value
         return args
 
-    def command_error(self, message):
-        return CommandError(f"{self.command} error: {message}")
+    def command_error(self, message, received_command=''):
+        received_command =      received_command.strip()
+        command_msg      = f' ({received_command})' if received_command else ''
+        return CommandError(f"{self.command} error: {message}{command_msg}")

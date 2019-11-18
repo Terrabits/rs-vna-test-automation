@@ -1,6 +1,8 @@
 from ...mixin                  import CommandMixin, CookiesMixin, ProjectMixin, VnaMixin
+from .save_paths               import SavePaths
 from pathlib                   import Path
 from instrument_server.command import Base
+
 
 class Start(CookiesMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
     def __init__(self, devices, **settings):
@@ -29,6 +31,12 @@ class Start(CookiesMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
         self.cookies['cal_group_name']   = cal_group_name
         self.cookies['results']          = {'serial_no': serial_no}
         self.cookies['results']['steps'] = [None] * steps
+
+        # paths
+        root_path  = '~/Documents/TestAutomation'
+        paths      = SavePaths(root_path, serial_no)
+        paths.mkdir_p()
+        self.cookies['save_paths'] = paths
 
 IS_COMMAND_PLUGIN = True
 plugin            = Start

@@ -12,7 +12,7 @@ class HomeSubcontroller extends Subcontroller {
     if (!originalPage.is('HomePage')) {
       return;
     }
-    
+
     // ip address
     const ipAddress = this.view.ipAddress;
     if (!ipAddress) {
@@ -28,7 +28,7 @@ class HomeSubcontroller extends Subcontroller {
       filename = this.view.projectFilename;
     }
     // TODO: fix broken feature 💩
-    filename = '~/Documents/Node/test-automation/src/projects/cable-example/procedure.yaml';
+    filename = '~/Documents/Node/test-automation/src/projects/examples/cable/procedure.yaml';
     if (!isPermanentProject && !filename) {
       this.view.alert.show('danger', '*Project filename not entered!')
       return;

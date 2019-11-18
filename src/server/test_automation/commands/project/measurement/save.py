@@ -5,8 +5,6 @@ import json
 import os
 from   pathlib                   import Path
 
-root_save_path = Path(os.path.expanduser('~')) / 'Documents' / 'TestAutomation'
-
 class Save(CookiesMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
     def __init__(self, devices, **settings):
         Base        .__init__(self, devices, **settings)
@@ -32,18 +30,18 @@ class Save(CookiesMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
         # args
         path = args['path']
 
-        # path
-        save_path = root_save_path / self.cookies['serial_no']
-        save_path.mkdir(parents=True, exist_ok=True)
+        # paths
+        paths = self.cookies['save_paths']
 
         # calculate global pass/fail
         get_limit_str   = lambda i: i['limits']
         step_limit_strs = map(get_limit_str, self.cookies['results']['steps'])
         limit_str       = global_limit_for(step_limit_strs)
         self.cookies['results']['limits'] = limit_str
+        paths.write_global_limit(limit_str)
 
         # save
-        filename = str(save_path / 'results.json')
+        filename = paths.summary_json_filename()
         with open(filename, 'w') as f:
             json.dump(self.cookies['results'], f)
 

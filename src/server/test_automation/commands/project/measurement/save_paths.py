@@ -1,10 +1,11 @@
+import os
 from   pathlib import Path
 from   pathvalidate import sanitize_filename
 import shutil
 
 class SavePaths:
     def __init__(self, root_path, serial_no):
-        self.root_path = Path(root_path)
+        self.root_path = Path(os.path.expanduser(root_path))
         self.serial_no = serial_no
 
     # serial_no/
@@ -25,10 +26,22 @@ class SavePaths:
     def zip(self):
         shutil.make_archive(str(self.part_path), 'zip', str(self.part_path), str(self.part_path))
 
+    def write_global_limit(self, limit_str):
+        if not limit_str or not limit_str in ['passed', 'failed']:
+            return
+        filename          = '__passed__' if limit_str == 'passed' else '__failed__'
+        global_limit_path = self.part_path / filename
+        global_limit_path.touch()
+
     # serial_no/serial_no.html
-    def summary_filename(self):
+    def summary_html_filename(self):
         serial_no = sanitize_filename(self.serial_no)
         return str(self.part_path / f'{serial_no}.html')
+
+    def summary_json_filename(self):
+        serial_no = sanitize_filename(self.serial_no)
+        return str(self.part_path / f'{serial_no}.json')
+
 
     # serial_no/data/
     @property
@@ -38,6 +51,9 @@ class SavePaths:
     # serial_no/data/{step_name}/
     def data_path_for(self, step_name):
         return self.data_path / sanitize_filename(step_name)
+
+    def mk_data_dir_p(self, step_name):
+        self.data_path_for(step_name).mkdir(parents=True, exist_ok=True)
 
     # serial_no/data/{step_name}/markers/
     def markers_path_for(self, step_name):
@@ -66,6 +82,9 @@ class SavePaths:
     # serial_no/images/{step_name}/
     def diagram_path_for(self, step_name):
         return self.images_path / sanitize_filename(step_name)
+
+    def mk_diagram_dir_p(self, step_name):
+        self.diagram_path_for(step_name).mkdir(parents=True, exist_ok=True)
 
     def screenshot_filename_for(self, step_name, image_file_extension='jpg'):
         return str(self.diagram_path_for(step_name) / f'screenshot.{image_file_extension}')

@@ -24,7 +24,7 @@ def main():
     if args.project:
         project_filename = args.project
         config['plugins']['test_automation.commands.project.open_permanently']['filename'] = project_filename
-        del(kwargs['project'])
+    del(kwargs['project'])
 
     # address, port
     address = args.address
