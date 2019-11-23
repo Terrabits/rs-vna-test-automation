@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from './Spinner';
 import './Alert.scss';
 
 class Alert extends React.Component {
@@ -7,14 +8,16 @@ class Alert extends React.Component {
     this._cancel = () => {};
     this.state   = {
       context: 'danger',
+      spinner: false,
+      spinnerSize: 'sm',
       text: 'danger-zone',
       visible: false
     };
   }
 
-  show(context, text, timeout=7000) {
+  show(context, text, spinner=false, timeout=7000) {
     this._cancel();
-    this.setState({context, text, visible: true});
+    this.setState({context, text, spinner, visible: true});
     if (!timeout) {
       return;
     }
@@ -44,9 +47,13 @@ class Alert extends React.Component {
     const context   = this.state.context || 'primary';
     const classes   = ['alert', `alert-${context}`, 'fade', 'show'];
     const className = classes.join(' ');
+    const spinner   = this.state.spinner && (<Spinner key="spinner"/>);
+    const space     = spinner ? ' ' : '';
+    const text      = (<span key="text">{`${space}${this.state.text}`}</span>);
+    const children  = this.props.children || [spinner, text];
     return (
       <div id='alert' className={className} role='alert'>
-        {this.props.children || this.state.text}
+        {children}
       </div>
     );
   }

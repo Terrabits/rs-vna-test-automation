@@ -15,7 +15,7 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     if (step >= steps) {
       throw new Error(`step must be < ${steps}`);
     }
-    this.view.alert.show('light', `performing measurement ${step + 1}...`, false);
+    this.view.alert.show('primary', `Performing measurement ${step + 1}...`, true, false);
     const success = await this.model.performMeasurementStep(step);
     if (!success) {
       this.view.alert.show('danger', `*Measurement step ${step + 1} could not be performed!`);
