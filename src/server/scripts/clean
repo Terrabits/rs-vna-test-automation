@@ -7,7 +7,5 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -e
 set -x
 
-# remove
-rm -rf "$ROOT_DIR/../build"
-rm -rf "$ROOT_DIR/../dist"
+cd "$ROOT_DIR/.."
 find . -name __pycache__ -exec rm -rf {} +

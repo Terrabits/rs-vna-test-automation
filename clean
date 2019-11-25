@@ -8,6 +8,7 @@ set -e
 set -x
 
 # clean
+"$ROOT_DIR/src/server/scripts/clean"
 "$ROOT_DIR/src/ui/scripts/clean"
 "$ROOT_DIR/server/scripts/clean"
 "$ROOT_DIR/desktop/scripts/clean"
