@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# exit on error
+# echo on
+set -e
+set -x
+
+# remove links
+rm -rf "$ROOT_DIR/server/site.dev" "$ROOT_DIR/server/site.prod"
+
+# uninstall node packages
+"$ROOT_DIR/src/ui/scripts/uninstall"
+"$ROOT_DIR/desktop/scripts/uninstall"
+
+# is pyenv, python-version?
+if ! which pyenv || ! test -f "$ROOT_DIR/.python-version" ; then
+  exit 1
+fi
+
+# parse python version, virtual environment name
+IFS='@'
+PYENV_STRING="$(cat "$ROOT_DIR/.python-version")"
+read -ra PYENV_ARRAY <<< "$PYENV_STRING"
+VERSION="${PYENV_ARRAY[0]}"
+ENV_NAME="${PYENV_ARRAY[1]}"
+if [ -z "$VERSION" ] || [ -z "$ENV_NAME" ]; then
+  echo 'Could not "uninstall" python: .python-version not in format "version@env_name"'
+  exit 1
+fi
+
+# uninstall virtual environment
+if ! yes | pyenv uninstall "$PYENV_STRING" ; then
+  echo "warning: could not uninstall pyenv $PYENV_STRING: environment not found!"
+fi
+
+# recreate virtual environment
+pyenv virtualenv "$VERSION" "$VERSION@$ENV_NAME"
+
+# upgrade pip
+cd "$ROOT_DIR"
+yes | pip install --upgrade pip setuptools
