@@ -1,11 +1,15 @@
 from instrument_server.command import CommandError
 
+# NOTE:
+# SetupMixin requires VnaMixin!
+
 class SetupMixin(object):
     def apply_setup(self, filename):
         if filename.lower().endswith('.scpi'):
             self._apply_scpi_file(filename)
         else:
             self._apply_set_file(filename)
+        assert hasattr(self, 'vna') # requires VnaMixin
 
     def _apply_set_file(self, filename):
         raise NotImplementedError('Non-scpi setups not yet supported.')
