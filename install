@@ -9,10 +9,12 @@ set -x
 
 # create links
 # ln -s final_path link_path
-if [ ! -d "$ROOT_DIR/server/site.dev"] ; then
+if [ ! -d "$ROOT_DIR/server/site.dev" ] ; then
+  rm -rf "$ROOT_DIR/server/site.dev"
   ln -s "$ROOT_DIR/src/ui/build.dev"  "$ROOT_DIR/server/site.dev"
 fi
-if [ ! -d "$ROOT_DIR/server/site.prod"] ; then
+if [ ! -d "$ROOT_DIR/server/site.prod" ] ; then
+  rm -rf "$ROOT_DIR/server/site.prod"
   ln -s "$ROOT_DIR/src/ui/build.prod" "$ROOT_DIR/server/site.prod"
 fi
 

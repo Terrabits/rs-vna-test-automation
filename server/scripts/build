@@ -8,4 +8,4 @@ set -e
 set -x
 
 cd "$ROOT_DIR/.."
-pyinstaller server.spec
+yes | pyinstaller server.spec

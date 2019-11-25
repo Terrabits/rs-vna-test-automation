@@ -40,4 +40,4 @@ pyenv virtualenv "$VERSION" "$VERSION@$ENV_NAME"
 
 # upgrade pip
 cd "$ROOT_DIR"
-yes | pip install --upgrade pip setuptools
+pip install --upgrade pip setuptools
