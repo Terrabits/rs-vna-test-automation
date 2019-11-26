@@ -12,7 +12,7 @@ setup(
     packages=find_packages(exclude=['test']),
     package_data={'': ['*.yaml']},
     include_package_data=True,
-    install_requires=['instrument-server>=1.1.1<2.0', 'pathvalidate', 'rohdeschwarz'],
+    install_requires=['instrument-server>=1.3.4<2.0', 'pathvalidate', 'rohdeschwarz'],
     extras_require={
     'dev':  ['ddt>=1.2.0<2.0'],
     'test': ['ddt>=1.2.0<2.0']

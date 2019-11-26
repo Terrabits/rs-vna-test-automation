@@ -2,8 +2,8 @@ from ...mixin                     import CommandMixin, VnaMixin
 from instrument_server.command    import Base
 
 class CalGroups(VnaMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='cal_groups?')
         VnaMixin    .__init__(self)
 

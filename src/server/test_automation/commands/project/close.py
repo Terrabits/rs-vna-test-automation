@@ -2,8 +2,8 @@ from ..mixin                      import CommandMixin, ProjectMixin
 from instrument_server.command    import Base
 
 class Close(ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='close_project')
         ProjectMixin.__init__(self)
 

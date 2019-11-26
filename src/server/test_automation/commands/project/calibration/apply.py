@@ -2,8 +2,8 @@ from ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
 from instrument_server.command import Base
 
 class Apply(VnaMixin, ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='apply_calibration?', args={'cal_group_name': None})
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)

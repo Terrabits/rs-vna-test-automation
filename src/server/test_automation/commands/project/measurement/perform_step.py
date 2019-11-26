@@ -1,18 +1,17 @@
-from   ...mixin                  import CommandMixin, CookiesMixin, ProjectMixin, SetupMixin, VnaMixin
+from   ...mixin                  import CommandMixin, ProjectMixin, SetupMixin, VnaMixin
 from   .measurement              import global_limit_for, limit_str_for_trace
 from   .vna_patch                import nothing
 from   instrument_server.command import Base
 from   pathlib                   import Path
 import os
 
-class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='perform_measurement_step?', args={'index': int})
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
         SetupMixin  .__init__(self)
-        CookiesMixin.__init__(self, key='measurement', init_with={})
 
     @property
     def help_str(self):
@@ -35,7 +34,7 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
             self.apply_setup(str(self.project_root_path / filename))
 
         # cal group
-        cal_group_name = self.cookies['cal_group_name']
+        cal_group_name = self.state['measurement']['cal_group_name']
         if cal_group_name:
             for i in self.vna.channels:
                 self.vna.channel(i).cal_group = cal_group_name
@@ -43,7 +42,7 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
 
         # paths
         step_name = self.project['measurements'][index]['name']
-        paths     = self.cookies['save_paths']
+        paths     = self.state['measurement']['save_paths']
         paths.mk_data_dir_p   (step_name)
         paths.mk_diagram_dir_p(step_name)
 
@@ -130,7 +129,7 @@ class PerformStep(CookiesMixin, SetupMixin, VnaMixin, ProjectMixin, CommandMixin
             'channels':  channel_results_list,
             'diagrams':  diagram_results_list
         }
-        self.cookies['results']['steps'][index] = results
+        self.state['measurement']['results']['steps'][index] = results
         return True
 
 IS_COMMAND_PLUGIN = True

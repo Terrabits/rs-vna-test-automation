@@ -4,8 +4,8 @@ from pathlib                   import Path
 from instrument_server.command import Base
 
 class Start(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='start_calibration')
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)

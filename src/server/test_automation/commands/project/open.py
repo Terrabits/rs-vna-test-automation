@@ -5,8 +5,8 @@ from   pathlib                   import Path
 from   ruamel                    import yaml
 
 class Open(ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='open_project', args={'filename': None})
         ProjectMixin.__init__(self)
 

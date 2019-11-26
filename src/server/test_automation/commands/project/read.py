@@ -3,8 +3,8 @@ from   instrument_server.command    import Base
 import json
 
 class Read(ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='read_project?')
         ProjectMixin.__init__(self)
 

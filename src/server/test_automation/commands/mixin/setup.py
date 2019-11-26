@@ -9,7 +9,7 @@ class SetupMixin(object):
             self._apply_scpi_file(filename)
         else:
             self._apply_set_file(filename)
-        assert hasattr(self, 'vna') # requires VnaMixin
+        assert hasattr(self, 'vna'), 'No `vna` attribute. SetupMixin requires VnaMixin!'
 
     def _apply_set_file(self, filename):
         raise NotImplementedError('Non-scpi setups not yet supported.')

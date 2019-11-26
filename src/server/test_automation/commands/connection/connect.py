@@ -4,8 +4,8 @@ from rohdeschwarz.instruments.vna import Vna
 from socket import                error, herror, gaierror, timeout
 
 class Connect(VnaMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='connect_to_vna', args={'address': None})
         VnaMixin    .__init__(self)
 

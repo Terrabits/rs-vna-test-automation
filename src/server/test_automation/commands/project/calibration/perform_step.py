@@ -4,8 +4,8 @@ from   instrument_server.command import Base
 import socket
 
 class PerformStep(VnaMixin, ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='perform_calibration_step?', args={'index': int})
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)

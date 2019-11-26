@@ -3,8 +3,8 @@ from ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
 from instrument_server.command import Base
 
 class Steps(VnaMixin, ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='calibration_steps?')
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)

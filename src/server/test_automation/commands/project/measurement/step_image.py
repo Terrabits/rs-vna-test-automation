@@ -4,8 +4,8 @@ from instrument_server.command import Base
 from pathlib                   import Path
 
 class StepImage(ProjectMixin, CommandMixin, Base):
-    def __init__(self, devices, **settings):
-        Base        .__init__(self, devices, **settings)
+    def __init__(self, devices, state, **settings):
+        Base        .__init__(self, devices, state, **settings)
         CommandMixin.__init__(self, command='measurement_step_image?', args={'index': int})
         ProjectMixin.__init__(self)
 

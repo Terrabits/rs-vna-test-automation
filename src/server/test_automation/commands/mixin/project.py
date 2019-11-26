@@ -3,18 +3,18 @@ from ruamel  import yaml
 
 class ProjectMixin(object):
     def __init__(self):
-        if not 'project' in self.devices:
+        if not 'project' in self.state:
             self.project = None
-        if not 'is-permanent-project?' in self.devices:
+        if not 'is-permanent-project?' in self.state:
             self.is_permanent_project = False
 
     # is_permanent_project?
     @property
     def is_permanent_project(self):
-        return self.devices['is-permanent-project?']
+        return self.state['is-permanent-project?']
     @is_permanent_project.setter
     def is_permanent_project(self, value):
-        self.devices['is-permanent-project?'] = bool(value)
+        self.state['is-permanent-project?'] = bool(value)
 
     # is_project?
     @property
@@ -24,10 +24,10 @@ class ProjectMixin(object):
     # project (dict)
     @property
     def project(self):
-        return self.devices['project']
+        return self.state['project']
     @project.setter
     def project(self, new_project):
-        self.devices['project'] = new_project
+        self.state['project'] = new_project
 
     @property
     def project_root_path(self):
