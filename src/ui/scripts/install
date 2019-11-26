@@ -8,10 +8,10 @@ set -e
 set -x
 
 cd "$ROOT_DIR/.."
-npm install
+yarn
 
 # manually install lib/custom-create-react-app/packages/react-scripts
 # by calling npm install again
 # see https://github.com/npm/npm/issues/1341
-cd node_modules/react-scripts
-npm install
+# cd node_modules/react-scripts
+# npm install

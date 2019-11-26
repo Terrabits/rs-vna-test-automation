@@ -20,4 +20,4 @@ cp    assets/icon.icns build/
 cp    assets/icon.ico  build/
 
 # build
-npm run dist
+yarn dist

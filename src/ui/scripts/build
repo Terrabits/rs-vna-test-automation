@@ -12,7 +12,7 @@ set -x
 
 # build
 cd "$ROOT_DIR/.."
-npm run build-dev
+yarn build-dev
 mv build build.dev
-npm run build
+yarn build
 mv build build.prod

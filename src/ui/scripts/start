@@ -9,4 +9,4 @@ set -x
 
 # start
 cd "$ROOT_DIR/.."
-npm start
+yarn start

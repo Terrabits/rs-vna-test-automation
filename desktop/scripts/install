@@ -8,4 +8,4 @@ set -e
 set -x
 
 cd "$ROOT_DIR/.."
-npm install
+yarn
