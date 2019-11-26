@@ -1,10 +1,12 @@
-from ..mixin                   import CommandMixin, VnaMixin
-from instrument_server.command import Base
+from ..mixin                         import CommandMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class IsConnected(VnaMixin, CommandMixin, Base):
+class IsConnected(VnaMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='is_vna_connected?')
+        ParserMixin .__init__(self, command='is_vna_connected?')
+        CommandMixin.__init__(self)
         VnaMixin    .__init__(self)
 
     @property

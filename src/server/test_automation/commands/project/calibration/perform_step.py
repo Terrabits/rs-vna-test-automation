@@ -1,12 +1,14 @@
-from   .calibration              import num_steps, port_map_for_step_str
-from   ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from   instrument_server.command import Base
+from   .calibration                    import num_steps, port_map_for_step_str
+from   ...mixin                        import CommandMixin, ProjectMixin, VnaMixin
+from   instrument_server.command       import Base
+from   instrument_server.command.mixin import ParserMixin
 import socket
 
-class PerformStep(VnaMixin, ProjectMixin, CommandMixin, Base):
+class PerformStep(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='perform_calibration_step?', args={'index': int})
+        ParserMixin .__init__(self, command='perform_calibration_step?', args={'index': int})
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 

@@ -1,10 +1,12 @@
-from ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from instrument_server.command import Base
+from ...mixin                        import CommandMixin, ProjectMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class Apply(VnaMixin, ProjectMixin, CommandMixin, Base):
+class Apply(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='apply_calibration?', args={'cal_group_name': None})
+        ParserMixin .__init__(self, command='apply_calibration?', args={'cal_group_name': None})
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 

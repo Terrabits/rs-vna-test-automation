@@ -1,10 +1,12 @@
-from ..mixin                   import CommandMixin, ProjectMixin
-from instrument_server.command import Base
+from ..mixin                         import CommandMixin, ProjectMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class Name(ProjectMixin, CommandMixin, Base):
+class Name(ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='project_name?')
+        ParserMixin .__init__(self, command='project_name?')
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
 
     @property

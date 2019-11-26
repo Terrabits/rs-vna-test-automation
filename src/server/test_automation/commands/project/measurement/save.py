@@ -1,14 +1,16 @@
-from   ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from   .measurement              import global_limit_for
-from   instrument_server.command import Base
+from   .measurement import global_limit_for
+from   ...mixin     import CommandMixin, ProjectMixin, VnaMixin
+from   instrument_server.command       import Base
+from   instrument_server.command.mixin import ParserMixin
 import json
 import os
-from   pathlib                   import Path
+from   pathlib import Path
 
-class Save(VnaMixin, ProjectMixin, CommandMixin, Base):
+class Save(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='save_measurements', args={'path': None})
+        ParserMixin .__init__(self, command='save_measurements', args={'path': None})
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 

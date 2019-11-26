@@ -1,10 +1,12 @@
-from ...mixin                     import CommandMixin, VnaMixin
-from instrument_server.command    import Base
+from ...mixin                        import CommandMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class CalGroups(VnaMixin, CommandMixin, Base):
+class CalGroups(VnaMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='cal_groups?')
+        ParserMixin .__init__(self, command='cal_groups?')
+        CommandMixin.__init__(self)
         VnaMixin    .__init__(self)
 
     @property

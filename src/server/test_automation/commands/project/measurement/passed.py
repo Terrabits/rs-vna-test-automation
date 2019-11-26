@@ -1,11 +1,13 @@
-from   ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from   .measurement              import global_limit_for
-from   instrument_server.command import Base
+from .measurement import global_limit_for
+from ...mixin     import CommandMixin, ProjectMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class Passed(VnaMixin, ProjectMixin, CommandMixin, Base):
+class Passed(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='measurements_passed?')
+        ParserMixin .__init__(self, command='measurements_passed?')
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 

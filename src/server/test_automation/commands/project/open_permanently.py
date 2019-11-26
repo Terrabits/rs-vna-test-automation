@@ -1,4 +1,4 @@
-from   ..mixin                   import CommandMixin, ProjectMixin
+from   ..mixin                   import ProjectMixin
 from   instrument_server.command import Base
 import os
 from   pathlib                   import Path

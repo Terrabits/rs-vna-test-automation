@@ -1,11 +1,13 @@
-from .calibration              import num_steps
-from ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from instrument_server.command import Base
+from .calibration                    import num_steps
+from ...mixin                        import CommandMixin, ProjectMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class Steps(VnaMixin, ProjectMixin, CommandMixin, Base):
+class Steps(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='calibration_steps?')
+        ParserMixin .__init__(self, command='calibration_steps?')
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 

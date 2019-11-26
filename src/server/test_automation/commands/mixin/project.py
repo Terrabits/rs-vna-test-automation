@@ -41,9 +41,12 @@ class ProjectMixin(object):
         if self.project:
             raise self.command_error('already a project open')
         self.project = None
-        with open(filename, 'r') as f:
-            self.project             = yaml.safe_load(f.read())
-            self.project['__file__'] = filename
+        try:
+            with open(filename, 'r') as f:
+                self.project             = yaml.safe_load(f.read())
+                self.project['__file__'] = filename
+        except Exception as error:
+            pass
     def open_permanently(self, filename):
         self.open(filename)
         self.is_permanent_project = True

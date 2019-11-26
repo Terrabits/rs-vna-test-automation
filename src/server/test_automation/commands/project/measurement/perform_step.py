@@ -1,14 +1,16 @@
-from   ...mixin                  import CommandMixin, ProjectMixin, SetupMixin, VnaMixin
-from   .measurement              import global_limit_for, limit_str_for_trace
-from   .vna_patch                import nothing
-from   instrument_server.command import Base
-from   pathlib                   import Path
+from   .measurement import global_limit_for, limit_str_for_trace
+from   .vna_patch   import nothing
+from   ...mixin     import CommandMixin, ProjectMixin, SetupMixin, VnaMixin
+from   instrument_server.command       import Base
+from   instrument_server.command.mixin import ParserMixin
+from   pathlib      import Path
 import os
 
-class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
+class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='perform_measurement_step?', args={'index': int})
+        ParserMixin .__init__(self, command='perform_measurement_step?', args={'index': int})
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
         SetupMixin  .__init__(self)

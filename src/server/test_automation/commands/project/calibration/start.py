@@ -1,12 +1,15 @@
-from .calibration              import num_steps, port_map_for_step_str
-from ...mixin                  import CommandMixin, ProjectMixin, SetupMixin, VnaMixin
-from pathlib                   import Path
-from instrument_server.command import Base
+from .calibration                    import num_steps, port_map_for_step_str
+from ...mixin                        import CommandMixin, ProjectMixin, SetupMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
+from pathlib                         import Path
 
-class Start(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, Base):
+
+class Start(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='start_calibration')
+        ParserMixin .__init__(self, command='start_calibration')
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
         SetupMixin  .__init__(self)

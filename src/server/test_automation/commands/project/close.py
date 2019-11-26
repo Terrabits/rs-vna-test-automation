@@ -1,10 +1,12 @@
-from ..mixin                      import CommandMixin, ProjectMixin
-from instrument_server.command    import Base
+from ..mixin                         import CommandMixin, ProjectMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
 
-class Close(ProjectMixin, CommandMixin, Base):
+class Close(ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='close_project')
+        ParserMixin .__init__(self, command='close_project')
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
 
     @property

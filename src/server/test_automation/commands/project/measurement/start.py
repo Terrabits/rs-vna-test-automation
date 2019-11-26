@@ -1,13 +1,15 @@
-from ...mixin                  import CommandMixin, ProjectMixin, VnaMixin
-from .save_paths               import SavePaths
-from pathlib                   import Path
-from instrument_server.command import Base
+from .save_paths import SavePaths
+from ...mixin    import CommandMixin, ProjectMixin, VnaMixin
+from instrument_server.command       import Base
+from instrument_server.command.mixin import ParserMixin
+from pathlib     import Path
 
 
-class Start(VnaMixin, ProjectMixin, CommandMixin, Base):
+class Start(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        CommandMixin.__init__(self, command='start_measurements_for', args={'serial_no': None, 'cal_group_name': None})
+        ParserMixin .__init__(self, command='start_measurements_for', args={'serial_no': None, 'cal_group_name': None})
+        CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
 
