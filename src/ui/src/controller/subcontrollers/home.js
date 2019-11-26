@@ -22,37 +22,43 @@ class HomeSubcontroller extends Subcontroller {
 
     // project
     // TODO: replace 💩
-    const isPermanentProject = await this.model.isProjectOpenPermanently();
+    const isProjectOpen            = await this.model.isProjectOpen();
+    const isProjectOpenPermanently = await this.model.isProjectOpenPermanently();
     let filename = null;
-    if (!isPermanentProject) {
+    if (!isProjectOpenPermanently) {
       filename = this.view.projectFilename;
     }
     // TODO: fix broken feature 💩
     filename = '~/Documents/Node/test-automation/src/projects/examples/cable/procedure.yaml';
-    // filename = '~/Documents/TestAutomation/mfi-projects/cables/a-lightning/procedure.yaml';
-    if (!isPermanentProject && !filename) {
+    if (!isProjectOpenPermanently && !filename) {
       this.view.alert.show('danger', '*Project filename not entered!')
       return;
     }
 
-    // close any previously opened projects
-    this.model.closeProject();
-    this.model.disconnectFromVna();
+    // close previous vna connection
+    if (await this.model.isVnaConnected()) {
+      this.model.disconnectFromVna();
+    }
+
+    // close previous project
+    if (isProjectOpen && !isProjectOpenPermanently) {
+      this.model.closeProject();
+    }
 
     // connect to vna
     this.model.connectToVna(ipAddress);
     const isVnaConnected = await this.model.isVnaConnected();
     if (!isVnaConnected) {
-      this.view.alert.show('danger', `Could not connect to VNA at ${ipAddress}`);
+      this.showErrorOrMessage(`Could not connect to VNA at ${ipAddress}`);
       return;
     }
 
     // open project
-    if (!isPermanentProject) {
+    if (!isProjectOpenPermanently) {
       this.model.openProject(filename);
       const isOpen = await this.model.isProjectOpen();
       if (!isOpen) {
-        this.view.alert.show('danger', `Could not open project ${filename}`);
+        this.showErrorOrMessage(`Could not open project ${filename}`);
         return;
       }
     }

@@ -44,6 +44,14 @@ class Subcontroller {
   set currentPage(page) {
     this.controller.page = page;
   }
+
+  async showErrorOrMessage(message) {
+    const errors = await this.model.errors();
+    const msg = errors.length ?
+      errors[0]
+      : message;
+    this.view.alert.show('danger', msg);
+  }
 }
 
 export default Subcontroller;

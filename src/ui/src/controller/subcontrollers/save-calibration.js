@@ -9,16 +9,16 @@ class SaveCalibrationSubcontroller extends Subcontroller {
 
     const calGroup = this.view.saveAsCalGroup;
     if (!calGroup) {
-      this.view.alert.show('danger', '*Cal group name not entered!');
+      this.view.alert.show('danger', 'Cal group name not entered!');
       return;
     }
     const success = await this.model.applyCalibration(calGroup);
     if (!success) {
-      this.view.alert.show('danger', `*Error saving calibration.`);
+      this.view.alert.show('danger', `Error saving calibration.`);
       return;
     }
 
-    this.view.alert.show('success', '*Calibration saved.');
+    this.view.alert.show('success', 'Calibration saved!');
     this.controller.calGroup = calGroup;
     this.currentPage         = new Page("StartMeasurementPage");
     await this.updateView();

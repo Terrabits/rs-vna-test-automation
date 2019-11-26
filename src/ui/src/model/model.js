@@ -17,6 +17,11 @@ class Model {
     this.socket = new SerialSocket();
   }
 
+  // errors
+  async errors() {
+    return await this.socket.query('errors?\n', toJson);
+  }
+
   // vna
   async isVnaConnected() {
     return await this.socket.query('is_vna_connected?\n', toBool);
