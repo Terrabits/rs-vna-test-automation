@@ -35,6 +35,13 @@ class App extends React.Component {
     };
   }
 
+  get title() {
+    return document.getElementsByTagName('title')[0].textContent;
+  }
+  set title(textContent) {
+    document.getElementsByTagName('title')[0].textContent = textContent;
+  }
+
   get inputsDisabled() {
     return this.state['disableInputs'];
   }

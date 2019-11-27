@@ -21,9 +21,13 @@ class HomeSubcontroller extends Subcontroller {
     }
 
     // project
-    // TODO: replace 💩
     const isProjectOpen            = await this.model.isProjectOpen();
     const isProjectOpenPermanently = await this.model.isProjectOpenPermanently();
+    if (isProjectOpenPermanently) {
+      const project = await this.model.readProject();
+      this.view.title = `${project['name']} v${project['version']}`
+    }
+
     let filename = null;
     if (!isProjectOpenPermanently) {
       filename = this.view.projectFilename;
