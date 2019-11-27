@@ -27,11 +27,25 @@ class App extends React.Component {
     super(props);
     this.alertRef = React.createRef();
     this.state = {
+      pageName:      "HomePage",
+      disableInputs: false,
       onBackClicked: null,
       onNextClicked: null,
-      pageName:      "HomePage",
       sidebarItems: defaultSidebar
     };
+  }
+
+  get inputsDisabled() {
+    return this.state['disableInputs'];
+  }
+  set inputsDisabled(state) {
+    this.setState({disableInputs: state});
+  }
+  enableInputs() {
+    this.inputsDisabled = false;
+  }
+  disableInputs() {
+    this.inputsDisabled = true;
   }
 
   get alert() {
@@ -145,11 +159,11 @@ class App extends React.Component {
         <Header />
         <div className="container-fluid">
           <div className="row">
-            <Sidebar items={this.sidebarItems}/>
-            <Main alertRef={this.alertRef} pageName={this.pageName} settings={this.settings}/>
+            <Sidebar items={this.sidebarItems} disableInputs={this.inputsDisabled}/>
+            <Main alertRef={this.alertRef} pageName={this.pageName} settings={this.settings} disableInputs={this.inputsDisabled}/>
           </div>
         </div>
-        <Footer onBackClicked={this.onBackClicked} onNextClicked={this.onNextClicked}/>
+        <Footer disableInputs={this.inputsDisabled} onBackClicked={this.onBackClicked} onNextClicked={this.onNextClicked}/>
       </div>
     );
   }

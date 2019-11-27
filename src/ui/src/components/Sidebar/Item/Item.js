@@ -8,6 +8,11 @@ function Item(props) {
   if (props.active) {
     classes.push('active');
   }
+
+  const disableInputs = props.disableInputs || false;
+  if (disableInputs) {
+    classes.push('disabled');
+  }
   const className = classes.join(' ');
   const icon      = getIconByName(props.icon);
   const callback  = props.callback;
@@ -17,7 +22,7 @@ function Item(props) {
   if (props.subitems) {
     subitems = props.subitems.map((item, index) => {
       return (
-        <SubItem key={index} text={item.text} active={item.active} callback={item.callback} />
+        <SubItem key={index} text={item.text} active={item.active} callback={item.callback} disableInputs={disableInputs}/>
       );
     });
   }

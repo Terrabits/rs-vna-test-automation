@@ -6,6 +6,9 @@ function SubItem(props) {
   if (props.active) {
     classes.push('active');
   }
+  if (props.disableInputs) {
+    classes.push('disabled');
+  }
   const className = classes.join(' ');
   const callback  = props.callback;
   const text      = props.text;

@@ -4,6 +4,7 @@ import preventDefault from './prevent-default';
 import Title          from './Title';
 
 function StartMeasurementPage(props) {
+  const disableInputs = props.disableInputs || false;
   return (
     <div>
       <Title display="Start Measurements"/>
@@ -15,7 +16,7 @@ function StartMeasurementPage(props) {
           <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>Serial No</label>
-              <input id="serial-no" type="text" className="form-control"/>
+              <input id="serial-no" type="text" className="form-control" disabled={disableInputs}/>
             </div>
           </form>
         </div>

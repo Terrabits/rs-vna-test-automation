@@ -9,11 +9,11 @@ class StartMeasurementSubcontroller extends Subcontroller {
 
     const serialNo = this.view.serialNo;
     if (!serialNo) {
-      this.view.alert.show('danger', '*No serial number entered!');
+      this.view.alert.show('danger', 'No serial number entered!');
       return;
     }
     this.controller.serialNo = serialNo
-    this.view.alert.show('primary', `Starting measurements for serial no '${serialNo}'`, true, false);
+    this.view.alert.show('primary', `Starting measurements for serial no '${serialNo}'`);
     this.model.startMeasurementFor(this.controller.serialNo, this.controller.calGroup);
     this.currentPage = new Page('PerformMeasurementPage', 0);
     await this.updateView();

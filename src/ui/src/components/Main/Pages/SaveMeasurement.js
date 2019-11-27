@@ -6,11 +6,12 @@ import Paragraph from './Paragraph';
 import Title     from './Title';
 
 function SaveMeasurementPage(props) {
-  const settings = props.settings    || {};
-  const serialNo = settings.serialNo || '';
-  const passed   = settings.passed   || false;
-  const onClick  = settings.onClick  || null;
-  const download = [];
+  const disableInputs = props.disableInputs || false;
+  const settings      = props.settings      || {};
+  const serialNo      = settings.serialNo   || '';
+  const passed        = settings.passed     || false;
+  const onClick       = settings.onClick    || null;
+  const download      = [];
   if (!settings.hideDownload) {
     const icon = getIconByName('cloud-download');
     download.push((
@@ -18,7 +19,7 @@ function SaveMeasurementPage(props) {
         <Paragraph>
           Results can be downloaded as a zip file as well.
         </Paragraph>
-        <DownloadButton id="download-measurement" onClick={onClick}>
+        <DownloadButton id="download-measurement" onClick={onClick} disableInputs={disableInputs}>
           <Octicon icon={icon}/> Download
         </DownloadButton>
       </div>

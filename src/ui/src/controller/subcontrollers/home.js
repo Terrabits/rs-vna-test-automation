@@ -16,7 +16,7 @@ class HomeSubcontroller extends Subcontroller {
     // ip address
     const ipAddress = this.view.ipAddress;
     if (!ipAddress) {
-      this.view.alert.show('danger', '*IP Address not entered!');
+      this.view.alert.show('danger', 'IP Address not entered!');
       return;
     }
 
@@ -31,7 +31,7 @@ class HomeSubcontroller extends Subcontroller {
     // TODO: fix broken feature 💩
     filename = '~/Documents/Node/test-automation/src/projects/examples/cable/procedure.yaml';
     if (!isProjectOpenPermanently && !filename) {
-      this.view.alert.show('danger', '*Project filename not entered!')
+      this.view.alert.show('danger', 'Project filename not entered!')
       return;
     }
 
@@ -68,14 +68,19 @@ class HomeSubcontroller extends Subcontroller {
     this.controller.filename  = filename;
 
     // move to calibration
-    this.view.alert.show('success', '*VNA is connected')
+    this.view.alert.show('success', 'VNA is connected')
     this.currentPage = new Page("ChooseCalibrationPage");
     await this.updateView();
   }
 
   preventSidebarNavigation(originalPage, destinationPage) {
     if (originalPage.is('HomePage')) {
+      if (destinationPage.is('HomePage')) {
+        // do nothing
+        return;
+      }
       // can't navigate away from homepage.
+      this.view.alert.show('danger', 'Click Next to connect to VNA and continue.');
       return true;
     }
   }

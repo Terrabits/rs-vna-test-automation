@@ -11,11 +11,11 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
     if (calibration === '*New') {
       const calUnits = await this.model.calUnits();
       if (calUnits.length === 0) {
-        this.view.alert.show('danger', '*No cal unit connected!');
+        this.view.alert.show('danger', 'No cal unit connected!');
         return;
       }
       if (calUnits.length >= 2) {
-        this.view.alert.show('danger', '*Only one cal unit at a time is supported');
+        this.view.alert.show('danger', 'Only one cal unit at a time is supported');
         return;
       }
       // start new calibration
@@ -48,7 +48,7 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
       return false;
     }
     // cal group is undefined
-    this.view.alert.show('danger', '*Choose calibration to continue');
+    this.view.alert.show('danger', 'Choose calibration to continue');
     return true;
   }
 

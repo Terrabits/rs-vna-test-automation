@@ -15,16 +15,18 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     if (step >= steps) {
       throw new Error(`step must be < ${steps}`);
     }
+    this.view.disableInputs();
     this.view.alert.show('primary', `Performing measurement ${step + 1}...`, true, false);
     const success = await this.model.performMeasurementStep(step);
+    this.view.enableInputs()
     if (!success) {
-      this.view.alert.show('danger', `*Measurement step ${step + 1} could not be performed!`);
+      this.view.alert.show('danger', `Measurement step ${step + 1} could not be performed!`);
       return;
     }
-    this.view.alert.show('success', `*Measurement step ${step + 1} is complete!`);
+    this.view.alert.show('success', `Measurement step ${step + 1} is complete!`);
     if (success && ++this.currentPage.step >= steps) {
       // ready to save
-      this.view.alert.show('success', '*Measurements are complete!');
+      this.view.alert.show('success', 'Measurements are complete!');
       this.currentPage = new Page('SaveMeasurementPage');
     }
     await this.updateView();

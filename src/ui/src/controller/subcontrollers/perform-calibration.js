@@ -15,8 +15,10 @@ class PerformCalibrationSubcontroller extends Subcontroller {
     if (step >= steps) {
       throw new Error(`step must be < ${steps}`);
     }
+    this.view.disableInputs();
     this.view.alert.show('primary', `Performing calibration step ${step + 1}`, true, false);
     const success = await this.model.performCalibrationStep(step);
+    this.view.enableInputs();
     if (!success) {
       this.view.alert.show('danger', `*Calibration step ${step} failed!`);
       return;

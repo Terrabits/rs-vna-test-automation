@@ -4,7 +4,8 @@ import preventDefault from './prevent-default';
 import Title          from './Title';
 
 function ChooseCalibrationPage(props) {
-  let options = ['*New', '*None'];
+  const disableInputs = props.disableInputs || false;
+  let options         = ['*New', '*None'];
   if (props.settings && props.settings.hasOwnProperty('options')) {
     options = options.concat(props.settings['options']);
   }
@@ -25,7 +26,7 @@ function ChooseCalibrationPage(props) {
           <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>Calibration</label>
-              <select id="calibration-select" className="form-control">
+              <select id="calibration-select" className="form-control" disabled={disableInputs}>
                 {optionTags}
               </select>
             </div>

@@ -4,14 +4,16 @@ import preventDefault from './prevent-default';
 import Title          from './Title';
 
 function HomePage(props) {
-  const project = [];
-  if (!props.settings || !props.settings.hideProject) {
+  const disableInputs = props.disableInputs || false;
+  const settings      = props.settings      || {};
+  const project       = [];
+  if (!settings.hideProject) {
     project.push((
       <div key="project" className="form-group">
         <label>Project</label>
-        <input id="project-filename" className="form-control-file" type="file" name="project-filename"/>
+        <input id="project-filename" className="form-control-file" type="file" name="project-filename" disabled={disableInputs}/>
       </div>
-    ))
+    ));
   }
   return (
     <div>
@@ -24,9 +26,9 @@ function HomePage(props) {
           <form onSubmit={preventDefault}>
             <div className="form-group">
               <label>VNA IP Address</label>
-              <input id="ip-address" className="form-control" type="text"/>
+              <input id="ip-address" className="form-control" type="text" name="ip-address" disabled={disableInputs}/>
             </div>
-            {project}
+              {project}
             <p></p>
           </form>
         </div>
