@@ -1,6 +1,5 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
-import 'bootstrap';
 import './scss/styles.scss';
 import Model        from './model';
 import App          from './components/App';

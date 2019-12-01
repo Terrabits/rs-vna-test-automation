@@ -52,21 +52,21 @@ class Controller {
     // TODO: handle sidebar callbacks
   }
   async next() {
-    this.view.alert.close();
+    this.view.alert.hide();
     const originalPage = this.page.copy();
     this.subcontrollers.forEach(async (subcontroller) => {
       await subcontroller.onNextClicked(originalPage);
     });
   }
   async back() {
-    this.view.alert.close();
+    this.view.alert.hide();
     const originalPage = this.page.copy();
     this.subcontrollers.forEach(async (subcontroller) => {
       await subcontroller.onBackClicked(originalPage);
     });
   }
   async changePage(destinationPage) {
-    this.view.alert.close();
+    this.view.alert.hide();
     const originalPage = this.page.copy();
     // cycle through prevents and return if prevented
     for (let i=0; i < this.subcontrollers.length; i++) {

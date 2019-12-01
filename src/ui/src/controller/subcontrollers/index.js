@@ -1,3 +1,4 @@
+import AlertSubcontroller              from './alert';
 import BackSubcontroller               from './back';
 import ChooseCalibrationSubcontroller  from './choose-calibration';
 import HomeSubcontroller               from './home';
@@ -19,7 +20,8 @@ const subcontrollers = [
   PerformMeasurementSubcontroller,
   SaveMeasurementSubcontroller,
   BackSubcontroller,
-  SidebarSubcontroller
+  SidebarSubcontroller,
+  AlertSubcontroller  // purposefully last
 ];
 
 export default subcontrollers;
