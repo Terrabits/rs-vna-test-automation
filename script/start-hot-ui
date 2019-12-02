@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
 
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# paths
+SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT_DIR="$SCRIPTS_DIR/.."
 
 # exit on error
 # echo on
 set -e
 set -x
 
-SILENT="" # >/dev/null 2>&1
+# silence webpack dev server?
+SILENT=">/dev/null 2>&1"
 
-# start test-automation server, webpack dev server
+# build latest python
 ./src/server/scripts/install
 ./server/scripts/build
+
+# default browser
+export BROWSER="safari"
+
+# start
 (trap 'kill 0' SIGINT; "$ROOT_DIR/server/dist/test-automation/test-automation" --http-only & "$ROOT_DIR/src/ui/scripts/start" $SILENT)
