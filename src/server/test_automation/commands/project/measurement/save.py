@@ -9,7 +9,7 @@ from   pathlib import Path
 class Save(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):
         Base        .__init__(self, devices, state, **settings)
-        ParserMixin .__init__(self, command='save_measurements', args={'path': None})
+        ParserMixin .__init__(self, command='save_measurements')
         CommandMixin.__init__(self)
         ProjectMixin.__init__(self)
         VnaMixin    .__init__(self)
@@ -27,9 +27,6 @@ class Save(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         # unfinished steps!
         if None in self.state['measurement']['results']['steps']:
             raise self.command_error('Unfinished steps, cannot save')
-
-        # args
-        path = args['path']
 
         # paths
         paths = self.state['measurement']['save_paths']
