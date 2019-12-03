@@ -17,6 +17,7 @@ import test_automation.commands.project.calibration.perform_step
 import test_automation.commands.project.calibration.start
 import test_automation.commands.project.calibration.step
 import test_automation.commands.project.calibration.steps
+import test_automation.commands.project.measurement.download
 import test_automation.commands.project.measurement.passed
 import test_automation.commands.project.measurement.perform_step
 import test_automation.commands.project.measurement.save

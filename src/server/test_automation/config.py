@@ -26,6 +26,7 @@ config['plugins'] = {
 'test_automation.commands.project.calibration.start':        {},
 'test_automation.commands.project.calibration.step':         {},
 'test_automation.commands.project.calibration.steps':        {},
+'test_automation.commands.project.measurement.download':     {},
 'test_automation.commands.project.measurement.passed':       {},
 'test_automation.commands.project.measurement.perform_step': {},
 'test_automation.commands.project.measurement.save':         {},
