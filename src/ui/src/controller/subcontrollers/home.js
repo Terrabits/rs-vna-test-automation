@@ -53,7 +53,7 @@ class HomeSubcontroller extends Subcontroller {
     this.model.connectToVna(ipAddress);
     const isVnaConnected = await this.model.isVnaConnected();
     if (!isVnaConnected) {
-      this.showErrorOrMessage(`Could not connect to VNA at ${ipAddress}`);
+      this.view.alert.show('danger', `Could not connect to VNA at ${ipAddress}`);
       return;
     }
 
@@ -62,7 +62,7 @@ class HomeSubcontroller extends Subcontroller {
       this.model.openProject(filename);
       const isOpen = await this.model.isProjectOpen();
       if (!isOpen) {
-        this.showErrorOrMessage(`Could not open project ${filename}`);
+        this.view.alert.show('danger', `Could not open project ${filename}`);
         return;
       }
     }
