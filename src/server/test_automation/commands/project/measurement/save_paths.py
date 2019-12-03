@@ -24,7 +24,8 @@ class SavePaths:
 
     # => serial_no.zip
     def zip(self):
-        shutil.make_archive(str(self.part_path), 'zip', str(self.part_path), str(self.part_path))
+        part_path_str = str(self.part_path)
+        shutil.make_archive(self.zip_filename, 'zip', part_path_str, part_path_str)
 
     def write_global_limit(self, limit_str):
         if not limit_str or not limit_str in ['passed', 'failed']:
