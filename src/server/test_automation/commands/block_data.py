@@ -4,10 +4,10 @@
 # len(str(data)) <= 9
 MAX_SUPPORTED_SIZE = 10**9 - 1
 
-def header_for(size):
-    assert size < MAX_SUPPORTED_SIZE
-    size_str_len = len(str(size))
-    return f"#{len(str(size))}{size}".encode()
 def to_block_data_format(data):
-    assert type(data) == bytes
-    return header_for(len(data)) + data
+    assert type(data) == bytes,        'data must be bytes!'
+    size     = len(data)
+    assert size < MAX_SUPPORTED_SIZE, f'Maximum supported data size is {MAX_SUPPORTED_SIZE}. len(data) => {size}.'
+    size_len = len(str(size))
+    header   = f'#{size_len}{size}'.encode();
+    return header + data
