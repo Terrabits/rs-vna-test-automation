@@ -1,14 +1,22 @@
 import SerialSocket from './serial-socket';
 
 // type conversions
+function toString(result) {
+  return result.readAsText();
+}
 function toBool(result) {
-  return result.trim().toLowerCase() === 'true';
+  return toString(result).trim().toLowerCase() === 'true';
 }
 function toJson(result) {
-  return JSON.parse(result);
+  return JSON.parse(toString(result));
 }
 function toNumber(result) {
-  return Number(result.trim());
+  return Number(toString(result).trim());
+}
+function toDataFromBlockFormat(result) {
+  console.log(`converting blob of size ${result.size}`);
+  // TODO: extract data from blob
+  return result;
 }
 
 // promises abound.

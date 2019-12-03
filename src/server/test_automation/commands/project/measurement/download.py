@@ -1,6 +1,9 @@
-from   ...mixin     import CommandMixin, ProjectMixin
+from   .measurement  import global_limit_for
+from   ...block_data import to_block_data_format
+from   ...mixin      import CommandMixin, ProjectMixin
 from   instrument_server.command       import Base
 from   instrument_server.command.mixin import ParserMixin
+import json
 import shutil
 
 class Download(ProjectMixin, CommandMixin, ParserMixin, Base):
@@ -38,18 +41,17 @@ class Download(ProjectMixin, CommandMixin, ParserMixin, Base):
         with open(filename, 'w') as f:
             json.dump(self.state['measurement']['results'], f)
 
-        # zip
+        # create/update zip
         paths.zip()
 
-        # read data
-        with open(paths.zip_filename, 'rb') as f:
-            data = f.read()
+        # read and return data
+        try:
+            with open(paths.zip_filename, 'rb') as f:
+                data = f.read()
+        except:
+            raise self.command_error('Problem generating or reading results file', received_command)
+        return to_block_data_format(data)
 
-        # transfer
-        size     = len(data)
-        size_len = len(str(size))
-        header = f'#{size_len}{size}'.encode();
-        return header + data
 
 IS_COMMAND_PLUGIN = True
 plugin            = Download

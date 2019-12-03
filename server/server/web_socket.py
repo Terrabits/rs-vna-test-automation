@@ -7,7 +7,7 @@ def create_handler(instrument_server):
         await ws.prepare(request)
 
         async def send_fn(data):
-            await ws.send_str(data.decode())
+            await ws.send_bytes(data)
         handler = instrument_server.new_connection()
         async for msg in ws:
             if msg.type == aiohttp.WSMsgType.TEXT:

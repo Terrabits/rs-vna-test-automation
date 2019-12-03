@@ -59,7 +59,7 @@ class SerialSocket {
     next.reject(event);
   }
   _onMessage(event) {
-    console.log(`recv: ${event.data}`);
+    console.log(`recv: ${event.data} (${event.type})`);
     const next = this.promises.shift();
     next.resolve(next.typefn(event.data));
   }
