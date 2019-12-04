@@ -84,7 +84,7 @@ class HomeSubcontroller extends Subcontroller {
         return;
       }
       // can't navigate away from homepage.
-      this.view.alert.show('danger', 'Click Next to connect to VNA and continue.');
+      this.view.alert.show('danger', 'Click Next to process inputs and continue.');
       return true;
     }
   }
