@@ -1,14 +1,34 @@
 import SerialSocket from './serial-socket';
 
 // type conversions
-function toBool(result) {
-  return result.trim().toLowerCase() === 'true';
+async function toString(blob) {
+  return await new Response(blob).text();
 }
-function toJson(result) {
-  return JSON.parse(result);
+async function toBool(blob) {
+  const string = await toString(blob);
+  return string.trim().toLowerCase() === 'true';
 }
-function toNumber(result) {
-  return Number(result.trim());
+async function toJson(blob) {
+  // TODO:
+  // Do I need to convert from blob to string? 💩
+  const string = await toString(blob);
+  return JSON.parse(string);
+}
+async function toNumber(blob) {
+  const string = await toString(blob);
+  return Number(string.trim());
+}
+async function blockDataFormat(blob) {
+  console.log(`converting blob of size ${blob.size}`);
+  const hash      = await new Response(blob.slice(0,1)).text();
+  console.assert(hash === '#', 'this does not seem to be block data format...');
+  const sizeLen   = Number(await new Response(blob.slice(1, 2        )).text());
+  const sizeStart = 2;
+  const sizeStop  = 2 + sizeLen;
+  const size      = Number(await new Response(blob.slice(sizeStart, sizeStop)).text());
+  const dataStart = sizeStop;
+  const dataStop  = dataStart + size;
+  return blob.slice(dataStart, dataStop);
 }
 
 // promises abound.
@@ -52,12 +72,12 @@ class Model {
 
   // calibration
   async calGroups() {
-    const response      = await this.socket.query('cal_groups?\n');
+    const response      = await this.socket.query('cal_groups?\n', toString);
     const booleanFilter = (i) => { return Boolean(i); };
     return response.trim().split(',').filter(booleanFilter);
   }
   async calUnits() {
-    const response      = await this.socket.query('cal_units?\n');
+    const response      = await this.socket.query('cal_units?\n', toString);
     const booleanFilter = (i) => { return Boolean(i); };
     return response.trim().split(',').filter(booleanFilter);
   }
@@ -126,7 +146,10 @@ class Model {
   }
   saveMeasurements(path=null) {
     path = path || '.';
-    this.socket.send(`save_measurements ${path}\n`);
+    this.socket.send(`save_measurements\n`);
+  }
+  async downloadMeasurementResults() {
+    return await this.socket.query('download_measurement_results?\n', blockDataFormat)
   }
 };
 

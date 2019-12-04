@@ -34,7 +34,7 @@ class SerialSocket {
     console.log(`send: ${text}`);
     this.socket.send(text);
   }
-  query(text, typefn=(i)=>{return i.trim()}) {
+  query(text, typefn=async(i)=>{return i}) {
     return new Promise((resolve, reject) => {
       this.promises.push({resolve, reject, typefn});
       this.send(text);
@@ -59,9 +59,12 @@ class SerialSocket {
     next.reject(event);
   }
   _onMessage(event) {
-    console.log(`recv: ${event.data}`);
+    console.log(`recv: ${event.data} (${event.type})`);
     const next = this.promises.shift();
-    next.resolve(next.typefn(event.data));
+    (async () => {
+      const result = await next.typefn(event.data);
+      next.resolve(result);
+    })();
   }
   _onClose(event) {
     console.log(`socket close: ${event}`);
