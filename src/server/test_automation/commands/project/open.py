@@ -2,8 +2,6 @@ from ..mixin                         import CommandMixin, ProjectMixin
 from instrument_server.command       import Base
 from instrument_server.command.mixin import ParserMixin
 import os
-from   pathlib import Path
-from   ruamel  import yaml
 
 class Open(ProjectMixin, CommandMixin, ParserMixin, Base):
     def __init__(self, devices, state, **settings):

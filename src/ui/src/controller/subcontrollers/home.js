@@ -33,7 +33,7 @@ class HomeSubcontroller extends Subcontroller {
       filename = this.view.projectFilename;
     }
     // TODO: fix broken feature 💩
-    filename = '~/Documents/Node/test-automation/src/projects/examples/cable/procedure.yaml';
+    filename = '~/Documents/Node/test-automation/src/projects/examples/cable.zip';
     if (!isProjectOpenPermanently && !filename) {
       this.view.alert.show('danger', 'Project filename not entered!')
       return;

@@ -17,7 +17,7 @@ class Read(ProjectMixin, CommandMixin, ParserMixin, Base):
     def execute(self, received_command):
         args = self.args(received_command)
         self.raise_if_not_project()
-        return json.dumps(self.project).encode()
+        return json.dumps(self.project.procedure).encode()
 
 IS_COMMAND_PLUGIN = True
 plugin            = Read

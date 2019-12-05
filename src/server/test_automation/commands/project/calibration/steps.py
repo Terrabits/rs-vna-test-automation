@@ -20,7 +20,7 @@ class Steps(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         self.raise_if_not_vna()
         self.raise_if_not_project()
 
-        ports              = self.project['calibration']['ports']
+        ports              = self.project.procedure['calibration']['ports']
         num_cal_unit_ports = self.vna.cal_unit().ports
         return num_steps(ports, num_cal_unit_ports)
 

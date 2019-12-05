@@ -23,7 +23,7 @@ class PerformStep(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         index = args['index']
         if index < 0:
             raise self.command_error("index must be >= 0")
-        ports              = self.project['calibration']['ports']
+        ports              = self.project.procedure['calibration']['ports']
         num_cal_unit_ports = self.vna.cal_unit().ports
         steps              = num_steps(ports, num_cal_unit_ports)
         if index > steps:

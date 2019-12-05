@@ -1,5 +1,4 @@
-from pathlib import Path
-from ruamel  import yaml
+from .zip import ProjectZip
 
 class ProjectMixin(object):
     def __init__(self):
@@ -29,10 +28,6 @@ class ProjectMixin(object):
     def project(self, new_project):
         self.state['project'] = new_project
 
-    @property
-    def project_root_path(self):
-        return Path(self.project['__file__']).parent
-
     def raise_if_not_project(self):
         if not self.project:
             raise self.command_error('project not connected')
@@ -40,13 +35,10 @@ class ProjectMixin(object):
     def open(self, filename):
         if self.project:
             raise self.command_error('already a project open')
-        self.project = None
         try:
-            with open(filename, 'r') as f:
-                self.project             = yaml.safe_load(f.read())
-                self.project['__file__'] = filename
+            self.project = ProjectZip(filename)
         except Exception as error:
-            pass
+            raise self.command_error(f"unable to open project '{filename}' with error '{error}'")
     def open_permanently(self, filename):
         self.open(filename)
         self.is_permanent_project = True

@@ -16,9 +16,9 @@ class Version(ProjectMixin, CommandMixin, ParserMixin, Base):
     def execute(self, received_command):
         args = self.args(received_command)
         self.raise_if_not_project()
-        if not 'version' in self.project:
+        if not 'version' in self.project.procedure:
             raise self.command_error("project missing 'version'")
-        return self.project['version']
+        return self.project.procedure['version']
 
 IS_COMMAND_PLUGIN = True
 plugin            = Version

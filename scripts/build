@@ -9,7 +9,8 @@ ROOT_DIR="$SCRIPTS_DIR/.."
 set -e
 set -x
 
-# build src/ui, server
+# build src/projects, ui, server
+"$ROOT_DIR/src/projects/scripts/build"
 "$ROOT_DIR/src/ui/scripts/build"
 "$ROOT_DIR/server/scripts/build"
 

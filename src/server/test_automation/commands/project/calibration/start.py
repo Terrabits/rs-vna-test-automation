@@ -26,9 +26,9 @@ class Start(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base)
         channel = 1
 
         # setup
-        if 'setup' in self.project['calibration']:
-            filename  = self.project['calibration']['setup']
-            self.apply_setup(str(self.project_root_path / filename))
+        if 'setup' in self.project.procedure['calibration']:
+            filename  = self.project.procedure['calibration']['setup']
+            self.apply_setup(filename)
 
         # Clear previously defined cal
         self.vna.write(f"SENS{channel}:CORR:COLL:AUTO:ASS:DEL:ALL")
@@ -37,7 +37,7 @@ class Start(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base)
         self.vna.write(f"SENS{channel}:CORR:COLL:AUTO:CONF FNP,''")
 
         # Define each step
-        ports              = self.project['calibration']['ports']
+        ports              = self.project.procedure['calibration']['ports']
         num_cal_unit_ports = self.vna.cal_unit().ports
         for i in range(0, num_steps(ports, num_cal_unit_ports)):
             assignment = i + 1

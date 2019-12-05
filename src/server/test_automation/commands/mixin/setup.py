@@ -18,17 +18,17 @@ class SetupMixin(object):
         self.vna.clear_status()
         self.vna.preset()
         self.vna.pause()
-        with open(filename, 'r') as f:
-            for i, line in enumerate(f):
-                line = line.strip()
-                if not line or line.startswith('#'):
-                    # emtpy line or comment
-                    continue
-                if line.endswith('?'):
-                    self.vna.query(line)
-                else:
-                    self.vna.write(line)
-                if self.vna.is_error():
-                    self.vna.clear_status()
-                    raise self.command_error(f"SCPI Error in '{filename}' on line {i}: '{line}'")
+        lines = self.project.read_file(filename).decode().split('\n')
+        for i, line in enumerate(lines):
+            line = line.strip()
+            if not line or line.startswith('#'):
+                # emtpy line or comment
+                continue
+            if line.endswith('?'):
+                self.vna.query(line)
+            else:
+                self.vna.write(line)
+            if self.vna.is_error():
+                self.vna.clear_status()
+                raise self.command_error(f"SCPI Error in '{filename}' on line {i}: '{line}'")
         self.vna.pause(5*60*1000) # 5 mins ¯\_(ツ)_/¯

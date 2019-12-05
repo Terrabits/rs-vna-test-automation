@@ -21,17 +21,16 @@ class StepImage(ProjectMixin, CommandMixin, ParserMixin, Base):
         index = args['index']
         if index < 0:
             raise self.command_error('index must be >= 0')
-        steps = len(self.project['measurements'])
+        steps = len(self.project.procedure['measurements'])
         if index >= steps:
             raise self.command_error(f"index must be < {steps}")
-        if not 'image' in self.project['measurements'][index]:
+        if not 'image' in self.project.procedure['measurements'][index]:
             raise self.command_error(f"No image found in measurement step {index}")
 
-        root_path = Path(self.project['__file__']).parent
-        filename  = self.project['measurements'][index]['image']
+        filename       = self.project.procedure['measurements'][index]['image']
         file_extension = Path(filename).suffix[1:]
-        with open(str(root_path / filename), 'rb') as f:
-            return f"'{file_extension}',".encode() + to_block_data_format(f.read())
+        image_data     = self.project.read_file(filename)
+        return f"'{file_extension}',".encode() + to_block_data_format(image_data)
 
 IS_COMMAND_PLUGIN = True
 plugin            = StepImage

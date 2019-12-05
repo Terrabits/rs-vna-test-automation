@@ -20,11 +20,11 @@ class Step(ProjectMixin, CommandMixin, ParserMixin, Base):
         index = args['index']
         if index < 0:
             raise self.command_error("index must be >= 0")
-        steps = len(self.project['measurements'])
+        steps = len(self.project.procedure['measurements'])
         if index >= steps:
             raise self.command_error(f"index must be < {steps}")
 
-        return json.dumps(self.project['measurements'][index])
+        return json.dumps(self.project.procedure['measurements'][index])
 
 IS_COMMAND_PLUGIN = True
 plugin            = Step

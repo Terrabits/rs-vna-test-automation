@@ -18,7 +18,7 @@ class Name(ProjectMixin, CommandMixin, ParserMixin, Base):
         self.raise_if_not_project()
         if not 'name' in self.project:
             raise self.command_error("project missing 'name'")
-        return self.project['name']
+        return self.project.procedure['name']
 
 IS_COMMAND_PLUGIN = True
 plugin            = Name

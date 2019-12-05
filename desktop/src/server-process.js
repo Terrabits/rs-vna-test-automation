@@ -5,7 +5,7 @@ const waitOn  = require('wait-on');
 
 // paths
 const bin_filename     = path.join(__dirname, '..', 'server', 'test-automation');
-const project_filename = path.join(__dirname, '..', 'project', 'procedure.yaml');
+const project_filename = path.join(__dirname, '..', 'project', 'project.zip');
 
 // execFile settings
 let   args     = ['--http-only', '--serve-dev'];

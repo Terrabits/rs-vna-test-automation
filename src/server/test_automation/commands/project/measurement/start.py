@@ -29,7 +29,7 @@ class Start(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         # init state
         if not 'measurement' in self.state:
             self.state['measurement'] = dict()
-        steps = len(self.project['measurements'])
+        steps = len(self.project.procedure['measurements'])
         self.state['measurement']['serial_no']        = serial_no
         self.state['measurement']['cal_group_name']   = cal_group_name
         self.state['measurement']['results']          = {'serial_no': serial_no}

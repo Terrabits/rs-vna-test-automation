@@ -26,14 +26,14 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
         index      = args['index']
         if index < 0:
             raise self.command_error('index must be >= 0')
-        steps = len(self.project['measurements'])
+        steps = len(self.project.procedure['measurements'])
         if index >= steps:
             raise self.command_error(f'index must be < {steps}')
 
         # setup
-        if 'setup' in self.project['measurements'][index]:
-            filename = self.project['measurements'][index]['setup']
-            self.apply_setup(str(self.project_root_path / filename))
+        if 'setup' in self.project.procedure['measurements'][index]:
+            filename = self.project.procedure['measurements'][index]['setup']
+            self.apply_setup(filename)
 
         # cal group
         cal_group_name = self.state['measurement']['cal_group_name']
@@ -43,7 +43,7 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
                 self.vna.channel(i).dissolve_cal_group_link()
 
         # paths
-        step_name = self.project['measurements'][index]['name']
+        step_name = self.project.procedure['measurements'][index]['name']
         paths     = self.state['measurement']['save_paths']
         paths.mk_data_dir_p   (step_name)
         paths.mk_diagram_dir_p(step_name)
@@ -56,7 +56,7 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
         # save results
         channel_results_list = []
         for channel in self.vna.channels:
-            step_name = self.project['measurements'][index]['name']
+            step_name = self.project.procedure['measurements'][index]['name']
             ch        = self.vna.channel(channel)
             ports     = ch.ports_used()
             if not ports:

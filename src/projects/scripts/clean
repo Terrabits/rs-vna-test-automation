@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# paths
 SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPTS_DIR/.."
 
@@ -9,8 +8,5 @@ ROOT_DIR="$SCRIPTS_DIR/.."
 set -e
 set -x
 
-# clean
-"$ROOT_DIR/src/server/scripts/clean"
-"$ROOT_DIR/src/ui/scripts/clean"
-"$ROOT_DIR/server/scripts/clean"
-"$ROOT_DIR/desktop/scripts/clean"
+cd "$ROOT_DIR"
+find . -name '*.zip' -exec rm -rf {} +

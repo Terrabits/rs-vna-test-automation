@@ -16,7 +16,7 @@ class Steps(ProjectMixin, CommandMixin, ParserMixin, Base):
     def execute(self, received_command):
         args = self.args(received_command)
         self.raise_if_not_project()
-        return len(self.project['measurements'])
+        return len(self.project.procedure['measurements'])
 
 IS_COMMAND_PLUGIN = True
 plugin            = Steps
