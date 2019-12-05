@@ -1,8 +1,9 @@
-from .save_paths import SavePaths
-from ...mixin    import CommandMixin, ProjectMixin, VnaMixin
-from instrument_server.command       import Base
-from instrument_server.command.mixin import ParserMixin
-from pathlib     import Path
+from   .save_paths import SavePaths
+from   ...mixin    import CommandMixin, ProjectMixin, VnaMixin
+from   instrument_server.command       import Base
+from   instrument_server.command.mixin import ParserMixin
+from   pathlib     import Path
+import shutil
 
 
 class Start(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
@@ -40,6 +41,14 @@ class Start(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         paths      = SavePaths(root_path, serial_no)
         paths.mkdir_p()
         self.state['measurement']['save_paths'] = paths
+
+        # include project
+        src      = self.project.zip_filename
+        src_name = Path(src).name
+        dest     = str(paths.project_path / src_name)
+        paths.mk_project_dir_p()
+        shutil.copyfile(src, dest)
+
 
 IS_COMMAND_PLUGIN = True
 plugin            = Start

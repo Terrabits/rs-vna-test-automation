@@ -94,3 +94,11 @@ class SavePaths:
     def diagram_filename_for(self, step_name, diagram_name, image_file_extension='jpg'):
         diagram_name = sanitize_filename(diagram_name)
         return str(self.diagram_path_for(step_name) / f'{diagram_name}.{image_file_extension}')
+
+    # serial_no/project/
+    @property
+    def project_path(self):
+        return self.part_path / 'project'
+    def mk_project_dir_p(self):
+        self.project_path.mkdir(parents=True, exist_ok=True)
+    
