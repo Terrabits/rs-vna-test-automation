@@ -41,6 +41,7 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
             for i in self.vna.channels:
                 self.vna.channel(i).cal_group = cal_group_name
                 self.vna.channel(i).dissolve_cal_group_link()
+                self.vna.pause()
 
         # paths
         step_name = self.project.procedure['measurements'][index]['name']
