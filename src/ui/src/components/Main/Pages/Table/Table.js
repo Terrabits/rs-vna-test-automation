@@ -20,7 +20,7 @@ function Table(props) {
   });
   return (
     <div className="offset-md-3 col-md-6">
-      <table className="table table-bordered table-hover">
+      <table className="table table-bordered table-hover text-center">
         <thead>
           <tr>
             {header_tags}
