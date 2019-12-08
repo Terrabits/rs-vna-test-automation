@@ -1,23 +1,24 @@
-name: Cable Test
-version: 1.0.0
+name:        Cable Test
+version:     1.0.0
 calibration:
-  setup: setup/calibration.scpi
-  ports: [1, 2, 3, 4]
-  save_as: cable_test-{timestamp}
+  setup:     setup/calibration.scpi
+  ports:     [1, 2, 3, 4]
 measurements:
-  - setup: setup/measurement_step_1.scpi
-    name: data
-    image: image/measurement/step_1.jpg
+  - setup:   setup/measurement-step-1.scpi
+    name:    Data A
+    image:   image/measurement/step-1.jpg
+    caption: Single fixture with D+(A), D-(A) connections highlighted.
     connections:
-      1: J1  (connector a, D+)
-      3: J2  (connector a, D-)
-      2: J11 (connector b, D+)
-      4: J12 (connector b, D-)
-  - setup: setup/measurement_step_2.scpi
-    name: clock
-    image: image/measurement/step_2.jpg
+      1: D+(A) Fixture 1
+      2: D-(A) Fixture 1
+      3: D+(A) Fixture 2
+      4: D-(A) Fixture 2
+  - setup:   setup/measurement-step-2.scpi
+    name:    Data B
+    image:   image/measurement/step-2.jpg
+    caption: Single fixture with D+(B), D-(B) connections highlighted.
     connections:
-      1: J3  (connector a, CLK)
-      3: J4  (connector a, GND)
-      2: J13 (connector b, CLK)
-      4: J14 (connector b, GND)
+      1: D+(B) Fixture 1
+      2: D-(B) Fixture 1
+      3: D+(B) Fixture 2
+      4: D-(B) Fixture 2
