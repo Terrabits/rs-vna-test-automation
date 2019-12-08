@@ -19,7 +19,6 @@ async function toNumber(blob) {
   return Number(string.trim());
 }
 async function blockDataFormat(blob) {
-  console.log(`converting blob of size ${blob.size}`);
   const hash      = await new Response(blob.slice(0,1)).text();
   console.assert(hash === '#', 'this does not seem to be block data format...');
   const sizeLen   = Number(await new Response(blob.slice(1, 2        )).text());

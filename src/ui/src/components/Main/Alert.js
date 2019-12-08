@@ -26,7 +26,6 @@ class Alert extends React.Component {
   componentDidMount() {
     // setup bootstrap collapse
     const div = $('#collapse-alert')[0];
-    console.log(`this is div: ${div}`);
     if (!div) {
       return;
     }

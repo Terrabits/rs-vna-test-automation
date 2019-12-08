@@ -36,7 +36,6 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     if (!this.currentPage.is('PerformMeasurementPage')) {
       return;
     }
-    console.log('perform-measurement.updateSubview()');
     const step  =       this.currentPage.step;
     const steps = await this.model.measurementSteps();
     const json  = await this.model.measurementStep(step);
