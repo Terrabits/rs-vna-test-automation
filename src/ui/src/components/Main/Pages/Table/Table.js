@@ -19,7 +19,7 @@ function Table(props) {
     )
   });
   return (
-    <div className="offset-md-3 col-md-6">
+    <div className="mx-auto">
       <table className="table table-bordered table-hover text-center">
         <thead>
           <tr>

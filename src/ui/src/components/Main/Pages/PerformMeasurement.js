@@ -32,7 +32,7 @@ function PerformMeasurementPage(props) {
     }
     pageContents.push((
       <div className="row" key="image-row">
-        <div className="">
+        <div className="mx-auto">
           <figure className="figure text-center d-block">
             {imageContents}
           </figure>
