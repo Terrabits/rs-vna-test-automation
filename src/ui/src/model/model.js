@@ -120,6 +120,16 @@ class Model {
     }
     return await this.socket.query(`measurement_step? ${i}\n`, toJson);
   }
+  async measurementStepImage(i) {
+    if (i < 0) {
+      throw new Error(`Measurement step must be >= 0. Received: ${i}`);
+    }
+    const steps = await this.measurementSteps();
+    if (i >= steps) {
+      throw new Error(`Measurement step must be < ${steps}. Received: ${i}`);
+    }
+    return await this.socket.query(`measurement_step_image? ${i}\n`, blockDataFormat);
+  }
   startMeasurementFor(serialNo, calGroup=null) {
     serialNo = serialNo.trim();
     if (!serialNo) {

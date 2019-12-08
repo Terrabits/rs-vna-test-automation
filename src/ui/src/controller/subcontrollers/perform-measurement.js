@@ -41,10 +41,16 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     const steps = await this.model.measurementSteps();
     const json  = await this.model.measurementStep(step);
     const settings = {
-      step:        step,
+      step:        step+1,
       steps:       steps,
       connections: json.connections
     };
+    if ('image' in json) {
+      settings.image = await this.model.measurementStepImage(step);
+    }
+    if ('caption' in json) {
+      settings.caption = json.caption
+    }
     this.view.setPage('PerformMeasurementPage', settings);
   }
 }

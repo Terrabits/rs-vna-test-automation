@@ -28,9 +28,8 @@ class StepImage(ProjectMixin, CommandMixin, ParserMixin, Base):
             raise self.command_error(f"No image found in measurement step {index}")
 
         filename       = self.project.procedure['measurements'][index]['image']
-        file_extension = Path(filename).suffix[1:]
         image_data     = self.project.read_file(filename)
-        return f"'{file_extension}',".encode() + to_block_data_format(image_data)
+        return to_block_data_format(image_data)
 
 IS_COMMAND_PLUGIN = True
 plugin            = StepImage
