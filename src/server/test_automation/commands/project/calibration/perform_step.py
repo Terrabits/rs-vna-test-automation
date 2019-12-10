@@ -29,8 +29,8 @@ class PerformStep(VnaMixin, ProjectMixin, CommandMixin, ParserMixin, Base):
         if index > steps:
             raise self.command_error(f"index must be <= {steps}")
 
-        channel      = 1
-        timeout_ms     = 5*60*1000 # 5 mins ¯\_(ツ)_/¯
+        channel    = 1
+        timeout_ms = 10*60*1000 # 10 mins ¯\_(ツ)_/¯
 
         # acquire
         assignment = index + 1

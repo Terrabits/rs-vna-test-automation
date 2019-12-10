@@ -31,4 +31,4 @@ class SetupMixin(object):
             if self.vna.is_error():
                 self.vna.clear_status()
                 raise self.command_error(f"SCPI Error in '{filename}' on line {i}: '{line}'")
-        self.vna.pause(5*60*1000) # 5 mins ¯\_(ツ)_/¯
+        self.vna.pause(10*60*1000) # 10 mins ¯\_(ツ)_/¯

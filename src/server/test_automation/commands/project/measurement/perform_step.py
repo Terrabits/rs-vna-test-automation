@@ -54,7 +54,7 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
 
         # configure for sweeps
         self.vna.manual_sweep = True
-        self.vna.timeout_ms   = 5*60*1000 # 5 mins ¯\_(ツ)_/¯
+        self.vna.timeout_ms   = 10*60*1000 # 10 mins ¯\_(ツ)_/¯
 
         # sweep channels
         # save results
