@@ -35,7 +35,10 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
             filename = self.project.procedure['measurements'][index]['setup']
             self.apply_setup(filename)
 
-        # cal group
+        # stop sweeps
+        self.vna.manual_sweep = True
+
+        # apply cal
         cal_group_name = self.state['measurement']['cal_group_name']
         if cal_group_name:
             for i in self.vna.channels:
@@ -43,7 +46,7 @@ class PerformStep(SetupMixin, VnaMixin, ProjectMixin, CommandMixin, ParserMixin,
                 self.vna.channel(i).dissolve_cal_group_link()
                 self.vna.pause()
 
-        # paths
+        # make paths
         step_name = self.project.procedure['measurements'][index]['name']
         paths     = self.state['measurement']['save_paths']
         paths.mk_data_dir_p   (step_name)
