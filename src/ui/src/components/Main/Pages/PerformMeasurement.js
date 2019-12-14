@@ -7,9 +7,12 @@ function PerformMeasurementPage(props) {
   const pageContents = [];
 
   // title
-  const step  = props.settings.step;
-  const steps = props.settings.steps;
-  pageContents.push((<Title key="perform-measurement-page-title" display="Perform Measurement" step={step} steps={steps}/>));
+  const step     = props.settings.step;
+  const steps    = props.settings.steps;
+  const calGroup = props.settings.calGroup;
+  const calDate  = props.settings.calDate;
+  const serialNo = props.settings.serialNo;
+  pageContents.push((<Title key="perform-measurement-page-title" display="Perform Measurement" step={step} steps={steps} calGroup={calGroup} calDate={calDate} serialNo={serialNo}/>));
 
   // instructions
   pageContents.push((

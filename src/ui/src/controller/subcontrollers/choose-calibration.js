@@ -19,7 +19,6 @@ class ChooseCalibrationSubcontroller extends Subcontroller {
         return;
       }
       // start new calibration
-      this.view.alert.show('primary', 'Starting new calibration.', false);
       this.model.startCalibration();
       this.currentPage = new Page('PerformCalibrationPage', 0);
       await this.updateView();

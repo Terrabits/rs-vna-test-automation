@@ -1,0 +1,18 @@
+@import '../../../scss/bootstrap-variables.scss';
+
+div#title {
+  margin-bottom: $headings-margin-bottom;
+}
+div#title-display h5 {
+  margin-bottom: 0;
+}
+div#title-step {
+  color: gray;
+}
+div#title-serial-no {
+  color: gray;
+}
+div#title-cal-group {
+  color: gray;
+  overflow: hidden;
+}

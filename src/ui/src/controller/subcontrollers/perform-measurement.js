@@ -42,6 +42,8 @@ class PerformMeasurementSubcontroller extends Subcontroller {
     const settings = {
       step:        step+1,
       steps:       steps,
+      calGroup:    this.controller.calGroup,
+      serialNo:    this.controller.serialNo,
       connections: json.connections
     };
     if ('image' in json) {

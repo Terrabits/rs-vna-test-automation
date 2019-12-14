@@ -13,7 +13,6 @@ class StartMeasurementSubcontroller extends Subcontroller {
       return;
     }
     this.controller.serialNo = serialNo
-    this.view.alert.show('primary', `Starting measurements for serial no '${serialNo}'`);
     this.model.startMeasurementFor(this.controller.serialNo, this.controller.calGroup);
     this.currentPage = new Page('PerformMeasurementPage', 0);
     await this.updateView();
