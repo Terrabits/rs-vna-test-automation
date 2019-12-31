@@ -1,4 +1,4 @@
-const {execFile, spawn} = require('child_process');
+const {spawn} = require('child_process');
 const fs      = require('fs');
 const path    = require('path');
 const waitOn  = require('wait-on');
@@ -7,10 +7,10 @@ const waitOn  = require('wait-on');
 const bin_filename     = path.join(__dirname, '..', 'server', 'test-automation');
 const project_filename = path.join(__dirname, '..', 'project', 'project.zip');
 
-// execFile settings
+// spawn settings
 let   args     = ['--http-only', '--serve-dev'];
 const options  = {
-  // stdio: 'inherit'
+  stdio: ['pipe', 'inherit', 'inherit']
 };
 
 // permanent project?
@@ -20,7 +20,7 @@ if (fs.existsSync(project_filename)) {
 
 class ServerProcess {
   constructor() {
-    this.process = execFile(bin_filename, args, options);
+    this.process = spawn(bin_filename, args, options);
   }
 
   kill(signal='SIGINT') {
