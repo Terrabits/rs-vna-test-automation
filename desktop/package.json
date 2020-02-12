@@ -1,8 +1,8 @@
 {
   "name": "rs-vna-test-automation",
-  "productName": "R&S VNA Test Automation for Desktop",
-  "version": "0.1.0",
-  "description": "Simple ATE for Rohde & Schwarz VNAs.",
+  "productName": "R&S MFi USB to Lightning Cable Signal Integrity Test",
+  "version": "2020.02.10",
+  "description": "Simple ATE for USB to Lightning cable SI measurements with Rohde & Schwarz VNAs.",
   "author": "Nick Lalic",
   "homepage": "https://vna.rs-us.net/applications/test_automation.html",
   "repository": {
@@ -23,8 +23,8 @@
     "electron-builder": "^21.2.0"
   },
   "build": {
-    "appId": "com.rohde-schwarz.test-automation-desktop",
-    "productName": "R&S Test Automation for Desktop",
+    "appId": "com.rohde-schwarz.mfi-usb-lightning-cable",
+    "productName": "R&S MFi USB to Lightning Cable Signal Integrity Test",
     "asar": false,
     "files": [
       "project/**/*",
