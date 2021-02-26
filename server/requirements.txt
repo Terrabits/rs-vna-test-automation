@@ -1,4 +1,4 @@
 multidict==4.6.1
-aiohttp==3.6.2
+aiohttp==3.7.4
 pyinstaller==3.6
 setuptools~=45.2.0
